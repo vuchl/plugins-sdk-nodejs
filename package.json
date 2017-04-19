@@ -1,0 +1,24 @@
+{
+  "name": "plugins-sdk-nodejs",
+  "version": "1.0.0",
+  "description": "Staffbase plugin SDk for javascript / Nodej.JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "staffbase",
+    "sdk",
+    "plugin",
+    "jwt",
+    "authentication"
+  ],
+  "author": "Hassaan Zaidi (hassaanz@gmail.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^19.0.2"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^7.3.0"
+  }
+}
