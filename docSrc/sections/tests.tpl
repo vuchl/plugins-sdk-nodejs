@@ -1,0 +1,1 @@
+To run the tests a simple `# npm test` command in the root directory will suffice. The tests are run using the Jest  framework. Please consult [jest](https://facebook.github.io/jest/) to learn more about writing unit tests for the plugin.

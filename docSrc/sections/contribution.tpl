@@ -1,0 +1,6 @@
+- Fork it
+- Create a branch `git checkout -b feature-description`
+- Put your name into authors.txt
+- Commit your changes `git commit -am "Added ...."`
+- Push to the branch `git push origin feature-description`
+- Open a Pull Request

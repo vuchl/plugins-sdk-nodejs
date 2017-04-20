@@ -2,6 +2,11 @@ let jwt = require('jsonwebtoken');
 let TokenDataConsts = require('../utils/tokenDataConsts');
 
 class SSOTokenData {
+	/**
+	 * SSO Token Data 
+	 * @param  {Object} tokenVals TokenVals object wit keys representing possible SSO token values. 
+	 * @return {SSOTokenData}           An Instance of  SSOTokenData Class.
+	 */
 	constructor(tokenVals) {
 		this.aud 			= tokenVals.CLAIM_AUDIENCE;
 		this.exp			= tokenVals.CLAIM_EXPIRE_AT;
@@ -24,8 +29,14 @@ class SSOTokenData {
 		this.editor 		= tokenVals.USER_ROLE_EDITOR;
 	}
 
+	/**
+	 * Get signed string representation of the token data
+	 * @param  {String}   secret The Secret to be used for signing the token
+	 * @param  {Function} cb     Optional callback function to get the signed data in a callback pattern.
+	 * @return {String}          Signed representation of the token data. Returns if no callback is specified.
+	 */
 	getSigned(secret, cb) {
-		// using callback pattern for legacy support
+		// using callback pattern for legacy support. No Promises
 		if  (!secret) {
 			if  (!cb) {
 				throw new Error('No secret specified');
@@ -110,7 +121,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token expires.
 	 *
-	 * @return int
+	 * @return number
 	 */
 	getExpireAtTime() {
 		return this._getClaim('CLAIM_EXPIRE_AT');
@@ -119,7 +130,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token starts to be valid.
 	 *
-	 * @return int
+	 * @return number
 	 */
 	getNotBeforeTime() {
 		return this._getClaim('CLAIM_NOT_BEFORE');
@@ -128,7 +139,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token was issued.
 	 *
-	 * @return int
+	 * @return number
 	 */
 	getIssuedAtTime() {
 		return this._getClaim('CLAIM_ISSUED_AT');

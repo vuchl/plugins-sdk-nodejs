@@ -3,6 +3,7 @@ let jwt = require('jsonwebtoken');
 
 class SSOToken {
 	/**
+	 * Create an instance of SSOToken to parse signed toden data received from StaffBase backend. 
 	 * @param  String 	appSecret	App Secret used to decode the token data
 	 * @param  String 	tokenData 	Signed Token Data to be decoded
 	 * @return SSOToken 	A SSOToken instance
@@ -64,6 +65,14 @@ class SSOToken {
 
 		this.appSecret = appSecret;
 		this.tokenData = tokenData;
+	}
+
+	/**
+	 * Get  TokenData Object parsed by the SSOToken class.
+	 * @return {SSOTokenData} a TokenData object which can be used  to get SSO Token inforamtion.
+	 */
+	getTokenData() {
+		return this.tokenData;
 	}
 }
 

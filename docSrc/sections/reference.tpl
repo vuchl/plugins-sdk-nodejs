@@ -1,0 +1,1 @@
+For the API reference of this SDK please consult the [docs]({{apiRefPath}}).
