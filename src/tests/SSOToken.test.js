@@ -48,7 +48,7 @@ describe('Testing SSOToken Class', () => {
         describe('Testing Token constructor App Secret cases', () => {
             test('test token constructor with App Secret as null', () => {
                 expect( () => {
-                    let newToken = new SSOToken(null,  wrongTokenData);
+                    let newToken = new SSOToken(null, wrongTokenData);
                 }).toThrowError('App Secret null or not specified');
             });
             test('test token constructor with non String value for App Secret', () => {
@@ -71,7 +71,7 @@ describe('Testing SSOToken Class', () => {
             });
             test('test token constructor with non String value for Token Data', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret,  {nonString: true});
+                    let newToken = new SSOToken(testTokenSecret, {nonString: true});
                 }).toThrowError('Token Data must be a string value');
             });
             test('test token constructor with Token Data as empty string value', () => {
@@ -84,7 +84,7 @@ describe('Testing SSOToken Class', () => {
                     let newToken = new SSOToken(testTokenSecret, wrongTokenData);
                 }).toThrow();
             });
-            test('test token constructor with wrong jwt secret',  () => {
+            test('test token constructor with wrong jwt secret', () => {
                 expect( () => {
                     let newToken = new SSOToken('bad secret', encodedToken);
                 }).toThrow();

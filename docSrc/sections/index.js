@@ -1,5 +1,5 @@
 const fs = require('fs');
-const handlebars = require('handlebars')
+const handlebars = require('handlebars');
 const path = require('path');
 
 const pluginNpmUrl = 'http://npmjs.org/package/staffbase-plugins-nodejs';
@@ -7,7 +7,7 @@ const pluginNpmName = 'staffbase-plugins-nodejs';
 const apiRefPath = 'docs/API.MD';
 
 module.exports = {
-	getTplPromise : function() {
+	getTplPromise: function() {
 		let overviewPromise = new Promise( (resolve, reject) => {
 			fs.readFile(path.join(__dirname, './overview.tpl'), (err, overviewData) => {
 				if (err) {
@@ -24,10 +24,10 @@ module.exports = {
 				} else {
 					let tpl = handlebars.compile(installationTpl.toString());
 					let rendered = tpl({
-						pluginNpmUrl: pluginNpmUrl ,
-						pluginNpmName: pluginNpmName
+						pluginNpmUrl: pluginNpmUrl,
+						pluginNpmName: pluginNpmName,
 					});
-					resolve(rendered)
+					resolve(rendered);
 				}
 			});
 		});
@@ -38,7 +38,7 @@ module.exports = {
 				} else {
 					let tpl = handlebars.compile(apiRefTpl.toString());
 					let rendered = tpl({
-						apiRefPath: apiRefPath
+						apiRefPath: apiRefPath,
 					});
 					resolve(rendered);
 				}
@@ -48,15 +48,15 @@ module.exports = {
 			fs.readFile(path.join(__dirname, './usage.tpl'), (err, usageTpl) => {
 				if (err) {
 					reject(err);
-				} else  {
+				} else {
 					let tpl = handlebars.compile(usageTpl.toString());
 					let rendered = tpl({
-						pluginNpmName: pluginNpmName
+						pluginNpmName: pluginNpmName,
 					});
 					resolve(rendered);
 				}
-			})
-		})
+			});
+		});
 		let contributionPromise = new Promise( (resolve, reject) => {
 			fs.readFile(path.join(__dirname, './contribution.tpl'), (err, contribTpl) => {
 				if (err) {
@@ -76,7 +76,7 @@ module.exports = {
 					reject(err);
 				} else {
 					let tpl = handlebars.compile(testsTpl.toString());
-					let  rendered = tpl({
+					let rendered = tpl({
 
 					});
 					resolve(rendered);
@@ -89,13 +89,13 @@ module.exports = {
 					reject(err);
 				} else {
 					let tpl = handlebars.compile(licenseTpl.toString());
-					let  rendered = tpl({
+					let rendered = tpl({
 
 					});
 					resolve(rendered);
 				}
-			})
-		})
+			});
+		});
 		return Promise.all([
 			overviewPromise,
 			installationPromise,
@@ -103,7 +103,7 @@ module.exports = {
 			usagePromise,
 			contributionPromise,
 			testPromise,
-			licensePromise
+			licensePromise,
 		]);
-	}
-}
+	},
+};

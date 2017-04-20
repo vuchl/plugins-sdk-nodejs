@@ -1,0 +1,21 @@
+{
+  "extends": ["google"],
+
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "max-len": [1, 120],
+    "padded-blocks": ["error", { "blocks": "never", "classes": "always" }],
+    "semi": 2,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  },
+  "plugins": [
+    "react"
+  ]
+}

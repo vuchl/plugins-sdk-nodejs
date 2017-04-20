@@ -29,12 +29,12 @@ let SSOTokenDataObj = new SSOTokenData(tokenDataVals);
 
 describe('Testing SSOTokenData Class', () => {
 	describe('Testing SSOTokenData.getSigned', () => {
-		describe('Sync mode', () =>  {
+		describe('Sync mode', () => {
 			test('Should throw error if no secret specified', () => {
 				expect( () => {
 					SSOTokenDataObj.getSigned();
 				}).toThrowError('No secret specified');
-			})
-		})
-	})
-})
+			});
+		});
+	});
+});

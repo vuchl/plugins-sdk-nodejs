@@ -1,21 +1,25 @@
 let jwt = require('jsonwebtoken');
 let TokenDataConsts = require('../utils/tokenDataConsts');
 
+/**
+ * SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
+ * @type {SSOTokenData}
+ */
 class SSOTokenData {
+
 	/**
-	 * SSO Token Data 
-	 * @param  {Object} tokenVals TokenVals object wit keys representing possible SSO token values. 
-	 * @return {SSOTokenData}           An Instance of  SSOTokenData Class.
+	 * SSO Token Data
+	 * @param  {Object} tokenVals TokenVals object wit keys representing possible SSO token values.
 	 */
 	constructor(tokenVals) {
-		this.aud 			= tokenVals.CLAIM_AUDIENCE;
-		this.exp			= tokenVals.CLAIM_EXPIRE_AT;
-		this.nbf			= tokenVals.CLAIM_NOT_BEFORE;
-		this.iat			= tokenVals.CLAIM_ISSUED_AT;
-		this.iss			= tokenVals.CLAIM_ISSUER;
-		this.instanceId		= tokenVals.CLAIM_INSTANCE_ID;
+		this.aud = tokenVals.CLAIM_AUDIENCE;
+		this.exp = tokenVals.CLAIM_EXPIRE_AT;
+		this.nbf = tokenVals.CLAIM_NOT_BEFORE;
+		this.iat = tokenVals.CLAIM_ISSUED_AT;
+		this.iss = tokenVals.CLAIM_ISSUER;
+		this.instanceId = tokenVals.CLAIM_INSTANCE_ID;
 		this.instanceName	= tokenVals.CLAIM_INSTANCE_NAME;
-		this.sub 			= tokenVals.CLAIM_USER_ID;
+		this.sub = tokenVals.CLAIM_USER_ID;
 		this.externamId 	= tokenVals.CLAIM_USER_EXTERNAL_ID;
 		this.name 			= tokenVals.CLAIM_USER_FULL_NAME;
 		this.givenName		= tokenVals.CLAIM_USER_FIRST_NAME;
@@ -37,8 +41,8 @@ class SSOTokenData {
 	 */
 	getSigned(secret, cb) {
 		// using callback pattern for legacy support. No Promises
-		if  (!secret) {
-			if  (!cb) {
+		if (!secret) {
+			if (!cb) {
 				throw new Error('No secret specified');
 			}
 			cb('No secret specified');
@@ -51,58 +55,63 @@ class SSOTokenData {
 
 	/**
 	 * Convert Token Data to an internally used keys for Claims
-	 * @return Object With internally  represented values for the jwt
+	 * @return {Object} With internally  represented values for the jwt
 	 */
 	toJSObj() {
 		return {
-			aud: 			this.aud,
-			exp: 			this.exp,
-			nbf: 			this.nbf,
-			iat: 			this.iat,
-			iss: 			this.iss,
-			instanceId: 	this.instanceId,
-			instanceName: 	this.instanceName,
-			sub: 			this.sub,
-			externamId: 	this.externamId,
-			name: 			this.name,
-			givenName: 		this.givenName,
-			familyName: 	this.familyName,
-			role: 			this.role,
-			type: 			this.type,
-			themingText: 	this.themingText,
-			themingBg: 		this.themingBg,
-			locale: 		this.locale,
-			user: 			this.user,
-			editor: 		this.editor,
-		}
+			aud: this.aud,
+			exp: this.exp,
+			nbf: this.nbf,
+			iat: this.iat,
+			iss: this.iss,
+			instanceId: this.instanceId,
+			instanceName: this.instanceName,
+			sub: this.sub,
+			externamId: this.externamId,
+			name: this.name,
+			givenName: this.givenName,
+			familyName: this.familyName,
+			role: this.role,
+			type: this.type,
+			themingText: this.themingText,
+			themingBg: this.themingBg,
+			locale: this.locale,
+			user: this.user,
+			editor: this.editor,
+		};
 	}
 	/**
 	 * Convert Token  Data to a CLAIM Represented JS Object
-	 * @return Object with possible Claim Values. 
+	 * @return {Object} with possible Claim Values.
 	 */
 	toJSObjPretty() {
 		return {
-			CLAIM_AUDIENCE: 				this.aud,
-			CLAIM_EXPIRE_AT: 				this.exp,
-			CLAIM_NOT_BEFORE: 				this.nbf,
-			CLAIM_ISSUED_AT: 				this.iat,
-			CLAIM_ISSUER: 					this.iss,
-			CLAIM_INSTANCE_ID: 				this.instanceId,
-			CLAIM_INSTANCE_NAME: 			this.instanceName,
-			CLAIM_USER_ID: 					this.sub,
-			CLAIM_USER_EXTERNAL_ID: 		this.externamId,
-			CLAIM_USER_FULL_NAME: 			this.name,
-			CLAIM_USER_FIRST_NAME: 			this.givenName,
-			CLAIM_USER_LAST_NAME: 			this.familyName,
-			CLAIM_USER_ROLE: 				this.role,
-			CLAIM_ENTITY_TYPE: 				this.type,
-			CLAIM_THEME_TEXT_COLOR: 		this.themingText,
-			CLAIM_THEME_BACKGROUND_COLOR: 	this.themingBg,
-			CLAIM_USER_LOCALE: 				this.locale,
-			USER_ROLE_USER: 				this.user,
-			USER_ROLE_EDITOR: 				this.editor,
-		}
+			CLAIM_AUDIENCE: this.aud,
+			CLAIM_EXPIRE_AT: this.exp,
+			CLAIM_NOT_BEFORE: this.nbf,
+			CLAIM_ISSUED_AT: this.iat,
+			CLAIM_ISSUER: this.iss,
+			CLAIM_INSTANCE_ID: this.instanceId,
+			CLAIM_INSTANCE_NAME: this.instanceName,
+			CLAIM_USER_ID: this.sub,
+			CLAIM_USER_EXTERNAL_ID: this.externamId,
+			CLAIM_USER_FULL_NAME: this.name,
+			CLAIM_USER_FIRST_NAME: this.givenName,
+			CLAIM_USER_LAST_NAME: this.familyName,
+			CLAIM_USER_ROLE: this.role,
+			CLAIM_ENTITY_TYPE: this.type,
+			CLAIM_THEME_TEXT_COLOR: this.themingText,
+			CLAIM_THEME_BACKGROUND_COLOR: this.themingBg,
+			CLAIM_USER_LOCALE: this.locale,
+			USER_ROLE_USER: this.user,
+			USER_ROLE_EDITOR: this.editor,
+		};
 	}
+	/**
+	 * Internally used to get value against the client param string.
+	 * @param  {String} claimName The claim name as defined in the tokenDataConsts
+	 * @return {String|number|null}           The  correspinding value of the Specified claim name.
+	 */
 	_getClaim(claimName) {
 		if (!TokenDataConsts[claimName]) {
 			throw new Error('Invalid Claim');
@@ -112,7 +121,7 @@ class SSOTokenData {
 	/**
 	 * Get targeted audience of the token.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getAudience() {
 		return this._getClaim('CLAIM_AUDIENCE');
@@ -121,7 +130,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token expires.
 	 *
-	 * @return number
+	 * @return {number}
 	 */
 	getExpireAtTime() {
 		return this._getClaim('CLAIM_EXPIRE_AT');
@@ -130,7 +139,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token starts to be valid.
 	 *
-	 * @return number
+	 * @return {number}
 	 */
 	getNotBeforeTime() {
 		return this._getClaim('CLAIM_NOT_BEFORE');
@@ -139,7 +148,7 @@ class SSOTokenData {
 	/**
 	 * Get the time when the token was issued.
 	 *
-	 * @return number
+	 * @return {number}
 	 */
 	getIssuedAtTime() {
 		return this._getClaim('CLAIM_ISSUED_AT');
@@ -148,7 +157,7 @@ class SSOTokenData {
 	/**
 	 * Get issuer of the token.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getIssuer() {
 		return this._getClaim('CLAIM_ISSUER');
@@ -159,7 +168,7 @@ class SSOTokenData {
 	 *
 	 * The id will always be present.
 	 *
-	 * @return string
+	 * @return {string}
 	 */
 	getInstanceId() {
 		return this._getClaim('CLAIM_INSTANCE_ID');
@@ -168,7 +177,7 @@ class SSOTokenData {
 	/**
 	 * Get the (plugin) instance name for which the token was issued.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getInstanceName() {
 		return this._getClaim('CLAIM_INSTANCE_NAME');
@@ -177,7 +186,7 @@ class SSOTokenData {
 	/**
 	 * Get the id of the authenticated user.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getUserId() {
 		return this._getClaim('CLAIM_USER_ID');
@@ -189,7 +198,7 @@ class SSOTokenData {
 	 * Example use case would be to map user from an external store
 	 * to the entry defined in the token.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getUserExternalId() {
 		return this._getClaim('CLAIM_USER_EXTERNAL_ID');
@@ -198,7 +207,7 @@ class SSOTokenData {
 	/**
 	 * Get either the combined name of the user or the name of the token.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getFullName() {
 		return this._getClaim('CLAIM_USER_FULL_NAME');
@@ -207,7 +216,7 @@ class SSOTokenData {
 	/**
 	 * Get the first name of the user accessing.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getFirstName() {
 		return this._getClaim('CLAIM_USER_FIRST_NAME');
@@ -216,7 +225,7 @@ class SSOTokenData {
 	/**
 	 * Get the last name of the user accessing.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getLastName() {
 		return this._getClaim('CLAIM_USER_LAST_NAME');
@@ -229,7 +238,7 @@ class SSOTokenData {
 	 * of the plugin instance, i.e. she has administration rights.
 	 * The type of the accessing entity can be either a “user” or a “editor”.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getRole() {
 		return this._getClaim('CLAIM_USER_ROLE');
@@ -240,7 +249,7 @@ class SSOTokenData {
 	 *
 	 * The type of the accessing entity can be either a “user” or a “token”.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getType() {
 		return this._getClaim('CLAIM_ENTITY_TYPE');
@@ -251,7 +260,7 @@ class SSOTokenData {
 	 *
 	 * The color is represented as a CSS-HEX code.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getThemeTextColor() {
 		return this._getClaim('CLAIM_THEME_TEXT_COLOR');
@@ -262,7 +271,7 @@ class SSOTokenData {
 	 *
 	 * The color is represented as a CSS-HEX code.
 	 *
-	 * @return null|string
+	 * @return {null|string}
 	 */
 	getThemeBackgroundColor() {
 		return this._getClaim('CLAIM_THEME_BACKGROUND_COLOR');
@@ -271,8 +280,8 @@ class SSOTokenData {
 	/**
 	 * Get the locale of the requesting user in the format of language tags.
 	 *
-	 * @return null|string
-	 */	
+	 * @return {null|string}
+	 */
 	getLocale() {
 		return this._getClaim('CAIM_USER_LOCALE');
 	}
@@ -281,14 +290,15 @@ class SSOTokenData {
 	 * Check if the user is an editor.
 	 *
 	 * The user will always have a user role to prevent a bug class
-	 * on missing values. Only when the editor role is explicitly 
-	 * provided the user will be marked as editor. 
+	 * on missing values. Only when the editor role is explicitly
+	 * provided the user will be marked as editor.
 	 *
-	 * @return boolean
+	 * @return {boolean}
 	 */
 	isEditor() {
 		return this._getClaim('CLAIM_USER_ROLE') === this.editor;
 	}
+
 }
 
 module.exports = SSOTokenData;
