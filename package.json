@@ -1,10 +1,12 @@
 {
   "name": "plugins-sdk-nodejs",
   "version": "1.0.0",
-  "description": "Staffbase plugin SDk for javascript / Nodej.JS",
-  "main": "index.js",
+  "description": "Staffbase plugin SDk for javascript / Node.JS",
+  "main": "./dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "babel src --presets babel-preset-es2015 --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "staffbase",
@@ -13,9 +15,11 @@
     "jwt",
     "authentication"
   ],
-  "author": "Hassaan Zaidi (hassaanz@gmail.com)",
+  "author": "Hassaan Zaidi <hassaanz@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
     "jest": "^19.0.2"
   },
   "dependencies": {

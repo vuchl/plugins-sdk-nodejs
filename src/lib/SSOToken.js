@@ -3,9 +3,9 @@ let jwt = require('jsonwebtoken');
 
 class SSOToken {
 	/**
-	 * @param  {String 	appSecret	App Secret used to decode the token data}
-	 * @param  {String 	tokenData 	Signed Token Data to be decoded}
-	 * @return {SSOToken 	A SSOToken instance}
+	 * @param  String 	appSecret	App Secret used to decode the token data
+	 * @param  String 	tokenData 	Signed Token Data to be decoded
+	 * @return SSOToken 	A SSOToken instance
 	 */
 	constructor(appSecret, tokenData) {
 		// Check  Validity of appSecret
@@ -33,7 +33,7 @@ class SSOToken {
 
 		let TimesCalled = 0;
 		// Verify token
-		console.log(tokenData);
+		// console.log(tokenData);
 		let decoded = jwt.verify(tokenData, appSecret);
 		let tokenDataInst =  new TokenData({
 			CLAIM_AUDIENCE: 				decoded.aud || null,
