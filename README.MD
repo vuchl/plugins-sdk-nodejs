@@ -15,7 +15,7 @@ You can also save the module as a local dependency in your project package.json 
 
 ## API Reference
 
-For the API reference of this SDK please consult the [docs](/docs/API.MD).
+For the API reference of this SDK please consult the [docs](docs/API.MD).
 
 ## Usage
 

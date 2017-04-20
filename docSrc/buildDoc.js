@@ -5,7 +5,7 @@ const sections = require('./sections');
 const path = require('path');
 
 jsdoc2md.render({
-	files: '../src/**/*.js'
+	files: path.join(__dirname, '../src/**/*.js')
 })
 .then( (mdData) => {
 	// Generate JSDoc Reference
@@ -56,6 +56,6 @@ jsdoc2md.render({
 	})
 })
 .then( (res) => {
-	console.log('Completed  Document Generation');
+	console.log('Completed Document Generation');
 })
 
