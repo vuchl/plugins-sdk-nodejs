@@ -4,11 +4,13 @@ const fs = require('fs');
 const sections = require('./sections');
 const path = require('path');
 
+// Build Markdown file form src JSDoc
 jsdoc2md.render({
 	files: path.join(__dirname, '../src/**/*.js'),
+	plugin: 'dmd-bitbucket',
 })
 .then( (mdData) => {
-	// Generate JSDoc Reference
+	// Copy JSDoc file to docs folder
 	fs.writeFile(path.join(__dirname, '../docs/API.MD'), mdData, (err, done) => {
 		if (err) {
 			return Promise.reject(err);
@@ -44,6 +46,7 @@ jsdoc2md.render({
 					tests: testText,
 					license: licenseText,
 				});
+				// Copy generated markdown file to root folder
 				fs.writeFile(path.join(__dirname, '../README.MD'), rendered, (err, done) => {
 					if (err) {
 						reject(err);
@@ -58,4 +61,3 @@ jsdoc2md.render({
 .then( (res) => {
 	console.log('Completed Document Generation');
 });
-

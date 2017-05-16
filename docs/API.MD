@@ -1,230 +1,190 @@
+
 ## Classes
-
-<dl>
-<dt><a href="#SSOToken">SSOToken</a></dt>
-<dd></dd>
-<dt><a href="#SSOTokenData">SSOTokenData</a></dt>
-<dd></dd>
-</dl>
-
-<a name="SSOToken"></a>
+Global | Description
+------ | -----------
+SSOToken | SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
+SSOTokenData : SSOTokenData | SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
 
 ## SSOToken
+SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
+
 **Kind**: global class  
 
-* [SSOToken](#SSOToken)
-    * [new SSOToken(String, String)](#new_SSOToken_new)
-    * [.getTokenData()](#SSOToken+getTokenData) ⇒ <code>[SSOTokenData](#SSOTokenData)</code>
+* [SSOToken](#markdown-header-ssotoken)
+    * [new SSOToken(appSecret, tokenData)](#markdown-header-new-ssotokenappsecret-tokendata)
+    * [.getTokenData()](#markdown-header-ssotokengettokendata-ssotokendata) ⇒ SSOTokenData
 
-<a name="new_SSOToken_new"></a>
-
-### new SSOToken(String, String)
+### new SSOToken(appSecret, tokenData)
 Create an instance of SSOToken to parse signed toden data received from StaffBase backend.
 
-**Returns**: SSOToken 	A SSOToken instance  
 
-| Param | Description |
-| --- | --- |
-| String | appSecret	App Secret used to decode the token data |
-| String | tokenData 	Signed Token Data to be decoded |
+| Param | Type | Description |
+| --- | --- | --- |
+| appSecret | string | App Secret used to decode the token data |
+| tokenData | string | Signed Token Data to be decoded |
 
-<a name="SSOToken+getTokenData"></a>
-
-### ssoToken.getTokenData() ⇒ <code>[SSOTokenData](#SSOTokenData)</code>
+### ssoToken.getTokenData() ⇒ SSOTokenData
 Get  TokenData Object parsed by the SSOToken class.
 
-**Kind**: instance method of <code>[SSOToken](#SSOToken)</code>  
-**Returns**: <code>[SSOTokenData](#SSOTokenData)</code> - a TokenData object which can be used  to get SSO Token inforamtion.  
-<a name="SSOTokenData"></a>
+**Kind**: instance method of [SSOToken](#markdown-header-new-ssotokenappsecret-tokendata)  
+**Returns**: SSOTokenData - a TokenData object which can be used  to get SSO Token inforamtion.  
+## SSOTokenData : SSOTokenData
+SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
 
-## SSOTokenData
 **Kind**: global class  
 
-* [SSOTokenData](#SSOTokenData)
-    * [new SSOTokenData(tokenVals)](#new_SSOTokenData_new)
-    * [.getSigned(secret, cb)](#SSOTokenData+getSigned) ⇒ <code>String</code>
-    * [.toJSObj()](#SSOTokenData+toJSObj) ⇒
-    * [.toJSObjPretty()](#SSOTokenData+toJSObjPretty) ⇒
-    * [.getAudience()](#SSOTokenData+getAudience) ⇒
-    * [.getExpireAtTime()](#SSOTokenData+getExpireAtTime) ⇒
-    * [.getNotBeforeTime()](#SSOTokenData+getNotBeforeTime) ⇒
-    * [.getIssuedAtTime()](#SSOTokenData+getIssuedAtTime) ⇒
-    * [.getIssuer()](#SSOTokenData+getIssuer) ⇒
-    * [.getInstanceId()](#SSOTokenData+getInstanceId) ⇒
-    * [.getInstanceName()](#SSOTokenData+getInstanceName) ⇒
-    * [.getUserId()](#SSOTokenData+getUserId) ⇒
-    * [.getUserExternalId()](#SSOTokenData+getUserExternalId) ⇒
-    * [.getFullName()](#SSOTokenData+getFullName) ⇒
-    * [.getFirstName()](#SSOTokenData+getFirstName) ⇒
-    * [.getLastName()](#SSOTokenData+getLastName) ⇒
-    * [.getRole()](#SSOTokenData+getRole) ⇒
-    * [.getType()](#SSOTokenData+getType) ⇒
-    * [.getThemeTextColor()](#SSOTokenData+getThemeTextColor) ⇒
-    * [.getThemeBackgroundColor()](#SSOTokenData+getThemeBackgroundColor) ⇒
-    * [.getLocale()](#SSOTokenData+getLocale) ⇒
-    * [.isEditor()](#SSOTokenData+isEditor) ⇒
-
-<a name="new_SSOTokenData_new"></a>
+* [SSOTokenData](#markdown-header-ssotokendata-ssotokendata) : [SSOTokenData](#markdown-header-ssotokendata-ssotokendata)
+    * [new SSOTokenData(tokenVals)](#markdown-header-new-ssotokendatatokenvals)
+    * [.getSigned(secret, cb)](#markdown-header-ssotokendatagetsignedsecret-cb-string) ⇒ String
+    * [.toJSObj()](#markdown-header-ssotokendatatojsobj-object) ⇒ Object
+    * [.toJSObjPretty()](#markdown-header-ssotokendatatojsobjpretty-object) ⇒ Object
+    * [._getClaim(claimName)](#markdown-header-ssotokendata_getclaimclaimname-stringnumbernull) ⇒ String ⎮ number ⎮ null
+    * [.getAudience()](#markdown-header-ssotokendatagetaudience-nullstring) ⇒ null ⎮ string
+    * [.getExpireAtTime()](#markdown-header-ssotokendatagetexpireattime-number) ⇒ number
+    * [.getNotBeforeTime()](#markdown-header-ssotokendatagetnotbeforetime-number) ⇒ number
+    * [.getIssuedAtTime()](#markdown-header-ssotokendatagetissuedattime-number) ⇒ number
+    * [.getIssuer()](#markdown-header-ssotokendatagetissuer-nullstring) ⇒ null ⎮ string
+    * [.getInstanceId()](#markdown-header-ssotokendatagetinstanceid-string) ⇒ string
+    * [.getInstanceName()](#markdown-header-ssotokendatagetinstancename-nullstring) ⇒ null ⎮ string
+    * [.getUserId()](#markdown-header-ssotokendatagetuserid-nullstring) ⇒ null ⎮ string
+    * [.getUserExternalId()](#markdown-header-ssotokendatagetuserexternalid-nullstring) ⇒ null ⎮ string
+    * [.getFullName()](#markdown-header-ssotokendatagetfullname-nullstring) ⇒ null ⎮ string
+    * [.getFirstName()](#markdown-header-ssotokendatagetfirstname-nullstring) ⇒ null ⎮ string
+    * [.getLastName()](#markdown-header-ssotokendatagetlastname-nullstring) ⇒ null ⎮ string
+    * [.getRole()](#markdown-header-ssotokendatagetrole-nullstring) ⇒ null ⎮ string
+    * [.getType()](#markdown-header-ssotokendatagettype-nullstring) ⇒ null ⎮ string
+    * [.getThemeTextColor()](#markdown-header-ssotokendatagetthemetextcolor-nullstring) ⇒ null ⎮ string
+    * [.getThemeBackgroundColor()](#markdown-header-ssotokendatagetthemebackgroundcolor-nullstring) ⇒ null ⎮ string
+    * [.getLocale()](#markdown-header-ssotokendatagetlocale-nullstring) ⇒ null ⎮ string
+    * [.isEditor()](#markdown-header-ssotokendataiseditor-boolean) ⇒ boolean
 
 ### new SSOTokenData(tokenVals)
 SSO Token Data
 
-**Returns**: <code>[SSOTokenData](#SSOTokenData)</code> - An Instance of  SSOTokenData Class.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| tokenVals | <code>Object</code> | TokenVals object wit keys representing possible SSO token values. |
+| tokenVals | Object | TokenVals object wit keys representing possible SSO token values. |
 
-<a name="SSOTokenData+getSigned"></a>
-
-### ssoTokenData.getSigned(secret, cb) ⇒ <code>String</code>
+### ssoTokenData.getSigned(secret, cb) ⇒ String
 Get signed string representation of the token data
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: <code>String</code> - Signed representation of the token data. Returns if no callback is specified.  
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: String - Signed representation of the token data. Returns if no callback is specified.  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| secret | <code>String</code> | The Secret to be used for signing the token |
-| cb | <code>function</code> | Optional callback function to get the signed data in a callback pattern. |
+| secret | String | The Secret to be used for signing the token |
+| cb | function | Optional callback function to get the signed data in a callback pattern. |
 
-<a name="SSOTokenData+toJSObj"></a>
-
-### ssoTokenData.toJSObj() ⇒
+### ssoTokenData.toJSObj() ⇒ Object
 Convert Token Data to an internally used keys for Claims
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: Object With internally  represented values for the jwt  
-<a name="SSOTokenData+toJSObjPretty"></a>
-
-### ssoTokenData.toJSObjPretty() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: Object - With internally  represented values for the jwt  
+### ssoTokenData.toJSObjPretty() ⇒ Object
 Convert Token  Data to a CLAIM Represented JS Object
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: Object with possible Claim Values.  
-<a name="SSOTokenData+getAudience"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: Object - with possible Claim Values.  
+### ssoTokenData._getClaim(claimName) ⇒ String ⎮ number ⎮ null
+Internally used to get value against the client param string.
 
-### ssoTokenData.getAudience() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: String ⎮ number ⎮ null - The  correspinding value of the Specified claim name.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| claimName | String | The claim name as defined in the tokenDataConsts |
+
+### ssoTokenData.getAudience() ⇒ null ⎮ string
 Get targeted audience of the token.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getExpireAtTime"></a>
-
-### ssoTokenData.getExpireAtTime() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getExpireAtTime() ⇒ number
 Get the time when the token expires.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: number  
-<a name="SSOTokenData+getNotBeforeTime"></a>
-
-### ssoTokenData.getNotBeforeTime() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getNotBeforeTime() ⇒ number
 Get the time when the token starts to be valid.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: number  
-<a name="SSOTokenData+getIssuedAtTime"></a>
-
-### ssoTokenData.getIssuedAtTime() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getIssuedAtTime() ⇒ number
 Get the time when the token was issued.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: number  
-<a name="SSOTokenData+getIssuer"></a>
-
-### ssoTokenData.getIssuer() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getIssuer() ⇒ null ⎮ string
 Get issuer of the token.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getInstanceId"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getInstanceId() ⇒ string
+Get the (plugin) instance id for which the token was issued.
 
-### ssoTokenData.getInstanceId() ⇒
-Get the (plugin) instance id for which the token was issued.The id will always be present.
+The id will always be present.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: string  
-<a name="SSOTokenData+getInstanceName"></a>
-
-### ssoTokenData.getInstanceName() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getInstanceName() ⇒ null ⎮ string
 Get the (plugin) instance name for which the token was issued.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getUserId"></a>
-
-### ssoTokenData.getUserId() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getUserId() ⇒ null ⎮ string
 Get the id of the authenticated user.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getUserExternalId"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getUserExternalId() ⇒ null ⎮ string
+Get the id of the user in an external system.
 
-### ssoTokenData.getUserExternalId() ⇒
-Get the id of the user in an external system.Example use case would be to map user from an external storeto the entry defined in the token.
+Example use case would be to map user from an external store
+to the entry defined in the token.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getFullName"></a>
-
-### ssoTokenData.getFullName() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getFullName() ⇒ null ⎮ string
 Get either the combined name of the user or the name of the token.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getFirstName"></a>
-
-### ssoTokenData.getFirstName() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getFirstName() ⇒ null ⎮ string
 Get the first name of the user accessing.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getLastName"></a>
-
-### ssoTokenData.getLastName() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getLastName() ⇒ null ⎮ string
 Get the last name of the user accessing.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getRole"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getRole() ⇒ null ⎮ string
+Get the role of the accessing user.
 
-### ssoTokenData.getRole() ⇒
-Get the role of the accessing user.If this is set to “editor”, the requesting user may manage the contentsof the plugin instance, i.e. she has administration rights.The type of the accessing entity can be either a “user” or a “editor”.
+If this is set to “editor”, the requesting user may manage the contents
+of the plugin instance, i.e. she has administration rights.
+The type of the accessing entity can be either a “user” or a “editor”.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getType"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getType() ⇒ null ⎮ string
+Get the type of the token.
 
-### ssoTokenData.getType() ⇒
-Get the type of the token.The type of the accessing entity can be either a “user” or a “token”.
+The type of the accessing entity can be either a “user” or a “token”.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getThemeTextColor"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getThemeTextColor() ⇒ null ⎮ string
+Get text color used in the overall theme for this audience.
 
-### ssoTokenData.getThemeTextColor() ⇒
-Get text color used in the overall theme for this audience.The color is represented as a CSS-HEX code.
+The color is represented as a CSS-HEX code.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getThemeBackgroundColor"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getThemeBackgroundColor() ⇒ null ⎮ string
+Get background color used in the overall theme for this audience.
 
-### ssoTokenData.getThemeBackgroundColor() ⇒
-Get background color used in the overall theme for this audience.The color is represented as a CSS-HEX code.
+The color is represented as a CSS-HEX code.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+getLocale"></a>
-
-### ssoTokenData.getLocale() ⇒
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getLocale() ⇒ null ⎮ string
 Get the locale of the requesting user in the format of language tags.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: null|string  
-<a name="SSOTokenData+isEditor"></a>
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.isEditor() ⇒ boolean
+Check if the user is an editor.
 
-### ssoTokenData.isEditor() ⇒
-Check if the user is an editor.The user will always have a user role to prevent a bug classon missing values. Only when the editor role is explicitly provided the user will be marked as editor.
+The user will always have a user role to prevent a bug class
+on missing values. Only when the editor role is explicitly
+provided the user will be marked as editor.
 
-**Kind**: instance method of <code>[SSOTokenData](#SSOTokenData)</code>  
-**Returns**: boolean  
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
