@@ -35,9 +35,13 @@ class SSOTokenData {
 
 	/**
 	 * Get signed string representation of the token data
-	 * @param  {String}   secret The Secret to be used for signing the token
-	 * @param  {Function} cb     Optional callback function to get the signed data in a callback pattern.
-	 * @return {String}          Signed representation of the token data. Returns if no callback is specified.
+	 * @param  {String}   secret The Secret to be used for signing the token.
+	 * The supported algorithm is RS256 so it is important that the secret is read
+	 * from a private key file.
+	 * @param  {Function} cb     Optional callback function to get the signed data
+	 * in a callback pattern.
+	 * @return {String}          Signed representation of the token data. Returns
+	 * if no callback is specified.
 	 */
 	getSigned(secret, cb) {
 		// using callback pattern for legacy support. No Promises
@@ -47,12 +51,43 @@ class SSOTokenData {
 			}
 			cb('No secret specified');
 		}
-		if (!cb) {
-			return jwt.sign(this.toJSObj(), secret);
+		try {
+			if (!cb) {
+				return jwt.sign(this.toJSObj(), secret, {algorithm: 'RS256'});
+			}
+			jwt.sign(this.toJSObj(), secret, {algorithm: 'RS256'}, cb);
+		} catch(err) {
+			console.log('error in signing jdk', err);
+			// throw new Error(err);
 		}
-		jwt.sign(this.toJSObj(), secret, cb);
 	}
-
+	/**
+	 * Get signed string representation of the token data with a non supported
+	 * (by Staffbase) Algotirhm.
+	 * @param  {String}   secret The Secret to be used for signing the token
+	 * @param  {Function} cb     Optional callback function to get the signed data
+	 * in a callback pattern.
+	 * @return {String}          Signed representation of the token data. Returns
+	 * if no callback is specified.
+	 */
+	getSignedWrong(secret, cb) {
+		// using callback pattern for legacy support. No Promises
+		if (!secret) {
+			if (!cb) {
+				throw new Error('No secret specified');
+			}
+			cb('No secret specified');
+		}
+		try {
+			if (!cb) {
+				return jwt.sign(this.toJSObj(), secret);
+			}
+			jwt.sign(this.toJSObj(), secret, cb);
+		} catch (err) {
+			console.log('error in signing jdk', err);
+			throw new Error(err);
+		}
+	}
 	/**
 	 * Convert Token Data to an internally used keys for Claims
 	 * @return {Object} With internally  represented values for the jwt

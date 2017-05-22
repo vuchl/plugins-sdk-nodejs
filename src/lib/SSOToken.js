@@ -7,12 +7,12 @@ let jwt = require('jsonwebtoken');
 class SSOToken {
 
 	/**
-	 * Create an instance of SSOToken to parse signed toden data received from StaffBase backend.
+	 * Create an instance of SSOToken to parse signed token data received from StaffBase backend.
 	 * @param  {string} appSecret	App Secret used to decode the token data
 	 * @param  {string} tokenData 	Signed Token Data to be decoded
 	 */
 	constructor(appSecret, tokenData) {
-		// Check  Validity of appSecret
+		// Check Validity of appSecret
 		if (appSecret === undefined || appSecret === null) {
 			// App secret not specified
 			throw new Error('App Secret null or not specified');
@@ -33,9 +33,19 @@ class SSOToken {
 		if (!tokenData.trim()) {
 			throw new Error('Token Data cannot be an empty string');
 		}
-		// Verify token
-		// console.log(tokenData);
-		let decoded = jwt.verify(tokenData, appSecret);
+		let decoded = null;
+		// Verify Token
+		try {
+			decoded = jwt.verify(tokenData, appSecret, {algorithms: ['RS256']});
+		} catch(err) {
+			if (err.message === 'invalid algorithm') {
+				throw new Error('Token Algorithm in not encoded in a supported format');
+			}
+			if (err.toString().indexOf('PEM_read_bio_PUBKEY failed') !== -1) {
+				throw new Error('Unable to read public key');
+			}
+			throw new Error(err);
+		}
 		let tokenDataInst = new TokenData({
 			CLAIM_AUDIENCE: decoded.aud || null,
 			CLAIM_EXPIRE_AT: decoded.exp || null,

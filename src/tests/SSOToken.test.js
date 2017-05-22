@@ -1,8 +1,14 @@
+const fs = require('fs');
+const path = require('path');
+
 const SSOToken = require('../lib/SSOToken');
 const SSOTokenData = require('../lib/SSOTokenData');
 
 const testTokenSecret = 'asdasd';
 const wrongTokenData = 'testData';
+
+const keyTokenPriv = fs.readFileSync(path.join(__dirname, '../../testKeyFiles/jwtRS256.key')).toString();
+const keyTokenPub = fs.readFileSync(path.join(__dirname, '../../testKeyFiles/jwtRS256.pub')).toString();
 
 let curTime = Math.floor(Date.now() / 1000);
 let expTime = Math.floor(Date.now() / 1000) + (60 * 60);
@@ -34,70 +40,79 @@ let SSOTokenDataObj = new SSOTokenData(tokenDataVals);
 let SSOExpTokenDataVals = Object.assign({}, tokenDataVals, {CLAIM_EXPIRE_AT: curTime});
 let SSOExpTokenDataObj = new SSOTokenData(SSOExpTokenDataVals);
 
-let encodedToken = SSOTokenDataObj.getSigned(testTokenSecret);
-let encodedTokenExp = SSOExpTokenDataObj.getSigned(testTokenSecret);
+// let encodedToken = SSOTokenDataObj.getSigned(testTokenSecret);
+let encodedTokenWrongAlgo = SSOTokenDataObj.getSignedWrong(testTokenSecret);
+let encodedTokenExp = SSOExpTokenDataObj.getSigned(keyTokenPriv);
+
+let encodedTokenWithKey = SSOTokenDataObj.getSigned(keyTokenPriv); // Get signed verison using private key
 
 describe('Testing SSOToken Class', () => {
     describe('Testing SSOToken Constructor', () => {
         test('test token constructor with undefined params', () => {
             expect( () => {
-                let newToken = new SSOToken();
+                new SSOToken();
             }).toThrow('App Secret null or not specified');
         });
 
         describe('Testing Token constructor App Secret cases', () => {
             test('test token constructor with App Secret as null', () => {
                 expect( () => {
-                    let newToken = new SSOToken(null, wrongTokenData);
+                    new SSOToken(null, wrongTokenData);
                 }).toThrowError('App Secret null or not specified');
             });
             test('test token constructor with non String value for App Secret', () => {
                 expect( () => {
-                    let newToken = new SSOToken({test: 1}, wrongTokenData);
+                    new SSOToken({test: 1}, wrongTokenData);
                 }).toThrowError('App Secret must be a string value');
             });
             test('test token constructor with App Secret as empty string value', () => {
                 expect( () => {
-                    let newToken = new SSOToken('', wrongTokenData);
+                    new SSOToken('', wrongTokenData);
                 }).toThrowError('App Secret cannot be an empty string');
             });
         });
 
         describe('Testing Token Constructor TokenData cases', () => {
+            test('test token constructor with token encoded by unsupported algorithm', () => {
+              expect( () => {
+                new SSOToken(keyTokenPub, encodedTokenWrongAlgo);
+              }).toThrowError('Token Algorithm in not encoded in a supported format');
+            });
             test('test token constructor with TokenData as null', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, null);
+                    new SSOToken(keyTokenPub, null);
                 }).toThrowError('Token Data null or not specified');
             });
             test('test token constructor with non String value for Token Data', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, {nonString: true});
+                    new SSOToken(keyTokenPub, {nonString: true});
                 }).toThrowError('Token Data must be a string value');
             });
             test('test token constructor with Token Data as empty string value', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, '');
+                    new SSOToken(keyTokenPub, '');
                 }).toThrowError('Token Data cannot be an empty string');
             });
             test('test token constructor unable to decode token', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, wrongTokenData);
+                    new SSOToken(keyTokenPub, wrongTokenData);
                 }).toThrow();
             });
-            test('test token constructor with wrong jwt secret', () => {
+            test('test token constructor with wrong jwt secret public key file', () => {
                 expect( () => {
-                    let newToken = new SSOToken('bad secret', encodedToken);
-                }).toThrow();
+                    new SSOToken('bad secret', encodedTokenWithKey);
+                }).toThrowError('Unable to read public key');
             });
             test('test token constructor with expired token', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, encodedTokenExp);
+                    new SSOToken(testTokenSecret, encodedTokenExp);
                 }).toThrow();
             });
             test('test token constructor with token data correctly decoded', () => {
                 expect( () => {
-                    let newToken = new SSOToken(testTokenSecret, encodedToken);
-                    return newToken;
+                  // use public key to verify key
+                  let newToken = new SSOToken(keyTokenPub, encodedTokenWithKey);
+                  return newToken;
                 }).not.toThrow();
             });
         });
