@@ -1,7 +1,8 @@
-let fs = require('fs');
+const fs = require('fs');
+const NodeRSA = require('node-rsa');
 
 /**
- * Reads key file from the specified path and returns a string representation
+ * Reads public key file from the specified path and returns a string representation
  * of the key to be used to decode token.
  * @param  {string} path The path of the private key file.
  * @param  {function} cb Optional callback function to use this in an async way
@@ -12,14 +13,45 @@ function readKeyFile(path, cb) {
     if (!cb) {
       throw new Error('Path not specified or empty');
     }
-    cb('No path speified');
+    return cb('Path not specified or empty');
   }
   if(!cb) {
     try {
-      return fs.readFileSync(path);
+      let fileContent = fs.readFileSync(path);
+      let key = new NodeRSA(fileContent.toString(), 'pkcs1');
+      console.log(key);
+      return key;
     } catch(err) {
+      console.log(err.message);
+      if (err.message.indexOf('ENOENT: no such file or directory') !== -1) {
+        throw new Error('Invalid file path');
+      }
+      if (err.message === 'encoding too long') {
+        throw new Error('Invalid key file');
+      }
+      throw err;
       console.log(err);
     }
+  } else {
+    fs.readFile(path, (err, res) => {
+      if (err) {
+        if (err.message.indexOf('ENOENT: no such file or directory') !== -1) {
+          return cb('Invalid file path');
+        }
+        return cb(err);
+      }
+      try {
+        let key = new NodeRSA(res.toString(), 'pkcs1');
+        console.log('Valid file here. lul', res);
+        return cb(null, res);
+      } catch (err) {
+        if (err.message === 'encoding too long') {
+          return cb('Invalid key file');
+        }
+        return cb(err);
+      }
+    });
   }
 }
+
 module.exports.readKeyFile = readKeyFile;
