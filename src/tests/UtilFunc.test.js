@@ -31,8 +31,8 @@ describe('Testing Utilitiy functions', () => {
       test('test reading valid public key file', () => {
         expect( () => {
           let key = helpers.readKeyFile(filePathValidKey);
-          expect(key).toBeDefined();
-        });
+          console.log('GOT KEY:', key);
+        }).not.toThrow();
       });
     });
     describe('testing cb pattern', () => {
@@ -58,6 +58,12 @@ describe('Testing Utilitiy functions', () => {
         helpers.readKeyFile(filePathInvKey, (err, res) => {
           expect(err).toMatch(/Invalid key file/);
           done();
+        });
+      });
+      test('test reading valid public key file', (done) => {
+        helpers.readKeyFile(filePathValidKey, (err, res) => {
+            expect(err).toBeFalsy();
+            done();
         });
       });
     });

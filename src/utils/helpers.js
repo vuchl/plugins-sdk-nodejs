@@ -18,11 +18,11 @@ function readKeyFile(path, cb) {
   if(!cb) {
     try {
       let fileContent = fs.readFileSync(path);
-      let key = new NodeRSA(fileContent.toString(), 'pkcs1');
-      console.log(key);
+      let key = new NodeRSA(fileContent.toString(), 'pkcs8-public');
+      // console.log(key);
+      // @TODO Return a strign representation of the key file
       return key;
     } catch(err) {
-      console.log(err.message);
       if (err.message.indexOf('ENOENT: no such file or directory') !== -1) {
         throw new Error('Invalid file path');
       }
@@ -41,8 +41,9 @@ function readKeyFile(path, cb) {
         return cb(err);
       }
       try {
-        let key = new NodeRSA(res.toString(), 'pkcs1');
-        console.log('Valid file here. lul', res);
+        let key = new NodeRSA(res.toString(), 'pkcs8-public');
+        console.log(key);
+        // @TODO Return a strign representation of the key file
         return cb(null, res);
       } catch (err) {
         if (err.message === 'encoding too long') {
