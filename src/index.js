@@ -1,1 +1,4 @@
-exports = require('./lib/SSOToken');
+exports = {
+  sso: require('./lib/SSOToken'),
+  helpers: require('./utils/helpers'),
+};

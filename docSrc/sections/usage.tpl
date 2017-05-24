@@ -1,10 +1,46 @@
 After installation you just need to include the module in  your own Javascript Program. The  module can be included using the following syntax:
 
 ```javascript
-const StaffBaseSSO = require('{{pluginNpmName}}')
+const StaffBaseSSO = require('{{pluginNpmName}}').sso
+```
+## About secret token
+Staffbase backend support only RS256 algorithm of JWT which means that the secret you should provide must be the content of public key in the `PKCS8` format.
+This means your public key should start and end with tags:
+
+```
+-----BEGIN PUBLIC KEY-----
+BASE64 ENCODED DATA
+-----END PUBLIC KEY-----
+```
+Within the base64 encoded data the following DER structure is present:
+```
+PublicKeyInfo ::= SEQUENCE {
+  algorithm       AlgorithmIdentifier,
+  PublicKey       BIT STRING
+}
+
+AlgorithmIdentifier ::= SEQUENCE {
+  algorithm       OBJECT IDENTIFIER,
+  parameters      ANY DEFINED BY algorithm OPTIONAL
+}
 ```
 
-You should have got your Secret from Staffbase. After receiving the token from the Staffbase backend, you can use the module to get the contents of the token.
+You can use the helper function to read and verify if your public key is in the supported format.
+```javascript
+	const helpers = require(`{{pluginNpmName}}`).helpers
+	const publicKeyPath = '[[Your File Path]]'
+	let keySecret;
+	try {
+		keySecret = helpers.readKeyFile(publicKeyPath);
+	} catch (err) {
+		console.log('Error Reading Key file', err);
+	}
+```
+
+You can then use keySecret to get an instance of StaffBaseSSO class.
+
+## Getting the SSOTokenData instance
+You should have got your Secret key file from Staffbase. After receiving the token from the Staffbase backend, you can use the module to get the contents of the token.
 
 ```javascript
 const secretToken = '[Your Secret Token Here]';
@@ -18,7 +54,7 @@ try {
 }
 ```
 
-If there is not exception thrown, you would get a SSOTokenData instance in the tokenData variable which you can use to get contents of the SSO Token.
+If no exception is thrown, you would get a SSOTokenData instance in the tokenData variable which you can use to get contents of the SSO Token.
 
 The following data can be retrieved from the token:
 

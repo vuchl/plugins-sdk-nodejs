@@ -5,6 +5,12 @@ Global | Description
 SSOToken | SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
 SSOTokenData : SSOTokenData | SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
 
+## Functions
+Global | Description
+------ | -----------
+readKeyFile(path, cb) ⇒ string | Reads public key file from the specified path and returns a string representation
+of the key to be used to decode token.
+
 ## SSOToken
 SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
 
@@ -15,7 +21,7 @@ SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
     * [.getTokenData()](#markdown-header-ssotokengettokendata-ssotokendata) ⇒ SSOTokenData
 
 ### new SSOToken(appSecret, tokenData)
-Create an instance of SSOToken to parse signed toden data received from StaffBase backend.
+Create an instance of SSOToken to parse signed token data received from StaffBase backend.
 
 
 | Param | Type | Description |
@@ -36,6 +42,7 @@ SSOTokenData Class used to host the token data values and provide getter functio
 * [SSOTokenData](#markdown-header-ssotokendata-ssotokendata) : [SSOTokenData](#markdown-header-ssotokendata-ssotokendata)
     * [new SSOTokenData(tokenVals)](#markdown-header-new-ssotokendatatokenvals)
     * [.getSigned(secret, cb)](#markdown-header-ssotokendatagetsignedsecret-cb-string) ⇒ String
+    * [.getSignedWrong(secret, cb)](#markdown-header-ssotokendatagetsignedwrongsecret-cb-string) ⇒ String
     * [.toJSObj()](#markdown-header-ssotokendatatojsobj-object) ⇒ Object
     * [.toJSObjPretty()](#markdown-header-ssotokendatatojsobjpretty-object) ⇒ Object
     * [._getClaim(claimName)](#markdown-header-ssotokendata_getclaimclaimname-stringnumbernull) ⇒ String ⎮ number ⎮ null
@@ -70,7 +77,21 @@ SSO Token Data
 Get signed string representation of the token data
 
 **Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
-**Returns**: String - Signed representation of the token data. Returns if no callback is specified.  
+**Returns**: String - Signed representation of the token data. Returns
+if no callback is specified.  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| secret | String | The Secret to be used for signing the token. The supported algorithm is RS256 so it is important that the secret is read from a private key file. |
+| cb | function | Optional callback function to get the signed data in a callback pattern. |
+
+### ssoTokenData.getSignedWrong(secret, cb) ⇒ String
+Get signed string representation of the token data with a non supported
+(by Staffbase) Algotirhm.
+
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: String - Signed representation of the token data. Returns
+if no callback is specified.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -188,3 +209,15 @@ on missing values. Only when the editor role is explicitly
 provided the user will be marked as editor.
 
 **Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+## readKeyFile(path, cb) ⇒ string
+Reads public key file from the specified path and returns a string representation
+of the key to be used to decode token.
+
+**Kind**: global function  
+**Returns**: string - String representation of the key file  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| path | string | The path of the private key file. |
+| cb | function | Optional callback function to use this in an async way |
+

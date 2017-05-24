@@ -31,7 +31,10 @@ describe('Testing Utilitiy functions', () => {
       test('test reading valid public key file', () => {
         expect( () => {
           let key = helpers.readKeyFile(filePathValidKey);
-          console.log('GOT KEY:', key);
+          // @TODO find regexp for PKCS8 Key format
+          // expect(key).toMatch(/-----BEGIN PUBLIC KEY-----*-----END PUBLIC KEY-----/)
+          // console.log('GOT KEY:', key);
+          expect(key).toBeDefined();
         }).not.toThrow();
       });
     });
@@ -61,9 +64,11 @@ describe('Testing Utilitiy functions', () => {
         });
       });
       test('test reading valid public key file', (done) => {
-        helpers.readKeyFile(filePathValidKey, (err, res) => {
-            expect(err).toBeFalsy();
-            done();
+        helpers.readKeyFile(filePathValidKey, (err, key) => {
+          // console.log('GOT KEY:', key);
+          expect(err).toBeFalsy();
+          expect(key).toBeDefined();
+          done();
         });
       });
     });
