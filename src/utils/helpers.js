@@ -51,4 +51,41 @@ function readKeyFile(path, cb) {
   }
 }
 
-module.exports.readKeyFile = readKeyFile;
+/**
+ * asCert converts a binary encoded key to PKCS8 format
+ * @param  {string} cert the binary endoded key string
+ * @param  {string} type the type of key 'PUBLIC KEY'|'PRIVATE KEY'
+ * @return {string}      the PKCS8 representation of the key
+ */
+function asCert(cert, type='PUBLIC KEY') {
+  const result = [`-----BEGIN ${type}-----`];
+  Array.prototype.push.apply(result, cert.match(/.{1,64}/g));
+  result.push(`-----END ${type}-----`);
+  return result.join('\n');
+}
+
+/**
+ * Transforms the provided key to PKCS8 format for supported jwt algorithm.
+ * @param  {string} key The public key file string.
+ * @param  {string} type the type of key 'PUBLIC KEY'|'PRIVATE KEY'
+ * @return {string}     The public key in PKCS8 format.
+ */
+function transformKeyToFormat(key, type='PUBLIC KEY') {
+  // @TODO Write tests
+  if (!key) {
+    throw new Error('No Secret Specified');
+  }
+  // Convert key to PKCS8 if the key is just a single line binary format.
+  if(key.indexOf('\n' === -1)) {
+    return asCert(key);
+  }
+  // else check out if the key is alreadt in the right format
+  if ( (key.indexOf('-----BEGIN ${type}-----') !== -1) && (key.indexOf(`-----END ${type}-----`) !== -1) ) {
+    throw new Error('Secret in Unsupported Format');
+  }
+  return key;
+}
+module.exports = {
+  readKeyFile,
+  transformKeyToFormat,
+};
