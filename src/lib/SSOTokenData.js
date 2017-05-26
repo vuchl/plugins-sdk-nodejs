@@ -20,17 +20,18 @@ class SSOTokenData {
 		this.instanceId = tokenVals.CLAIM_INSTANCE_ID;
 		this.instanceName	= tokenVals.CLAIM_INSTANCE_NAME;
 		this.sub = tokenVals.CLAIM_USER_ID;
-		this.externamId 	= tokenVals.CLAIM_USER_EXTERNAL_ID;
-		this.name 			= tokenVals.CLAIM_USER_FULL_NAME;
-		this.givenName		= tokenVals.CLAIM_USER_FIRST_NAME;
-		this.familyName		= tokenVals.CLAIM_USER_LAST_NAME;
-		this.role 			= tokenVals.CLAIM_USER_ROLE;
-		this.type 			= tokenVals.CLAIM_ENTITY_TYPE;
-		this.themingText 	= tokenVals.CLAIM_THEME_TEXT_COLOR;
-		this.themingBg 		= tokenVals.CLAIM_THEME_BACKGROUND_COLOR;
-		this.locale 		= tokenVals.CLAIM_USER_LOCALE;
-		this.user 			= tokenVals.USER_ROLE_USER;
-		this.editor 		= tokenVals.USER_ROLE_EDITOR;
+		this.externalId = tokenVals.CLAIM_USER_EXTERNAL_ID;
+		this.name = tokenVals.CLAIM_USER_FULL_NAME;
+		this.givenName = tokenVals.CLAIM_USER_FIRST_NAME;
+		this.familyName = tokenVals.CLAIM_USER_LAST_NAME;
+		this.role = tokenVals.CLAIM_USER_ROLE;
+		this.type = tokenVals.CLAIM_ENTITY_TYPE;
+		this.themingText = tokenVals.CLAIM_THEME_TEXT_COLOR;
+		this.themingBg = tokenVals.CLAIM_THEME_BACKGROUND_COLOR;
+		this.locale = tokenVals.CLAIM_USER_LOCALE;
+		this.user = tokenVals.USER_ROLE_USER;
+		this.editor = tokenVals.USER_ROLE_EDITOR;
+		this.tags		= tokenVals.USER_TAGS;
 	}
 
 	/**
@@ -102,7 +103,7 @@ class SSOTokenData {
 			instanceId: this.instanceId,
 			instanceName: this.instanceName,
 			sub: this.sub,
-			externamId: this.externamId,
+			externalId: this.externalId,
 			name: this.name,
 			givenName: this.givenName,
 			familyName: this.familyName,
@@ -113,6 +114,7 @@ class SSOTokenData {
 			locale: this.locale,
 			user: this.user,
 			editor: this.editor,
+			tags: this.tags,
 		};
 	}
 	/**
@@ -129,7 +131,7 @@ class SSOTokenData {
 			CLAIM_INSTANCE_ID: this.instanceId,
 			CLAIM_INSTANCE_NAME: this.instanceName,
 			CLAIM_USER_ID: this.sub,
-			CLAIM_USER_EXTERNAL_ID: this.externamId,
+			CLAIM_USER_EXTERNAL_ID: this.externalId,
 			CLAIM_USER_FULL_NAME: this.name,
 			CLAIM_USER_FIRST_NAME: this.givenName,
 			CLAIM_USER_LAST_NAME: this.familyName,
@@ -140,6 +142,7 @@ class SSOTokenData {
 			CLAIM_USER_LOCALE: this.locale,
 			USER_ROLE_USER: this.user,
 			USER_ROLE_EDITOR: this.editor,
+			USER_TAGS: this.tags,
 		};
 	}
 	/**
@@ -332,6 +335,14 @@ class SSOTokenData {
 	 */
 	isEditor() {
 		return this._getClaim('CLAIM_USER_ROLE') === this.editor;
+	}
+
+	/**
+	 * Get User Tags
+	 * @return {String[]} A String array containing user tags.
+	 */
+	getTags() {
+		return this._getClaim('USER_TAGS');
 	}
 
 }

@@ -98,14 +98,25 @@ an instance of `SSOTokenData` can be used in `req.sbSSO`.
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
 const SSOMiddleware = require({{pluginNpmName}}).middleware;
-let ssoMiddleWare = ssoMiddleWare(ssoSecret)
+let ssoMiddleWare = SSOMiddleware(ssoSecret);
 
 const redirectURL = '/staffbasae/sso/backoffice';
 var express = require('express');
 var app = express();
+
+// Request Handler for client side of plugin
+app.use('/frontEnd', ssoMiddleWare);
+app.get('/frontEnd', function(req, res) {
+  if (req.sbSSO) {
+    // Render the decoded object using Express templating engine
+    return res.render('plugin', req.sbSSO);
+  }
+  return res.end("Unable to decode token data");
+});
+
 // Apply middleware on the SSO URL
 app.use(redirectURL, ssoMiddleWare);
-// Your request handler below
+// Your request handler for admin side of plugin below
 app.get(redirectURL, function(req, res, next) {
   // Middleware was able to decode the token
   // console.log('Got SSO Request from backend', req.query);
@@ -121,5 +132,5 @@ app.get(redirectURL, function(req, res, next) {
     }
   });
   return res.end();
-})
+});
 ```

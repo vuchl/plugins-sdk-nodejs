@@ -5,6 +5,26 @@ let invalidFilePath = path.resolve(__dirname, '../../testKeyFiles/missingfile.ke
 let filePathInvKey = path.resolve(__dirname, '../../testKeyFiles/jwtRS256.key.pub');
 let filePathValidKey = path.resolve(__dirname, '../../testKeyFiles/jwtRS256.pub');
 
+// eslint-disable-next-line max-len
+const sampleBinaryKey = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApXd6RqV95G7+alU1PmA49n9IG8mCT27vpCpTJz3MGH+pqBEp6gLYDkP6lxK4ix5dy9NrOcKnaIWJ3xAc/JU+rVt6CiEyqJo4rchrNnRQsn4+P+efuVlsL959MqjzQC98qcVdf44C3wrxsOHE823zRACsJylOFkf7KkXd9c8L8vIj9x29q5K7NkGRKtOLKY7k4QPhlCVFDkMgAidHvi8HD7HDI6KYljguuhHUtRdrmC4i0NuwpSdqsavUJ9ASQu9Cr0QhpzOFJeZQ91ZkLoSDAkpSXAfBS+lvGtEnWLh7q3JczJOb3Tz8YolUTGfBlJ9iXiHDcY8PXdRTrvUVqeTe3wIDAQAB';
+const samplePKCS8Key = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApXd6RqV95G7+alU1PmA4
+9n9IG8mCT27vpCpTJz3MGH+pqBEp6gLYDkP6lxK4ix5dy9NrOcKnaIWJ3xAc/JU+
+rVt6CiEyqJo4rchrNnRQsn4+P+efuVlsL959MqjzQC98qcVdf44C3wrxsOHE823z
+RACsJylOFkf7KkXd9c8L8vIj9x29q5K7NkGRKtOLKY7k4QPhlCVFDkMgAidHvi8H
+D7HDI6KYljguuhHUtRdrmC4i0NuwpSdqsavUJ9ASQu9Cr0QhpzOFJeZQ91ZkLoSD
+AkpSXAfBS+lvGtEnWLh7q3JczJOb3Tz8YolUTGfBlJ9iXiHDcY8PXdRTrvUVqeTe
+3wIDAQAB
+-----END PUBLIC KEY-----`;
+// This one contains newlines but no key headers
+const sampleWrongKey = `MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApXd6RqV95G7+alU1PmA4
+9n9IG8mCT27vpCpTJz3MGH+pqBEp6gLYDkP6lxK4ix5dy9NrOcKnaIWJ3xAc/JU+
+rVt6CiEyqJo4rchrNnRQsn4+P+efuVlsL959MqjzQC98qcVdf44C3wrxsOHE823z
+RACsJylOFkf7KkXd9c8L8vIj9x29q5K7NkGRKtOLKY7k4QPhlCVFDkMgAidHvi8H
+D7HDI6KYljguuhHUtRdrmC4i0NuwpSdqsavUJ9ASQu9Cr0QhpzOFJeZQ91ZkLoSD
+AkpSXAfBS+lvGtEnWLh7q3JczJOb3Tz8YolUTGfBlJ9iXiHDcY8PXdRTrvUVqeTe
+3wIDAQAB`;
+
 describe('Testing Utilitiy functions', () => {
   describe('Testing readKeyFile', () => {
     describe('testing sync calls', () => {
@@ -71,6 +91,36 @@ describe('Testing Utilitiy functions', () => {
           done();
         });
       });
+    });
+  });
+  describe('testing transformKeyToFormat', () => {
+    test('test transforming null secret / key', () => {
+      expect( () => {
+        helpers.transformKeyToFormat();
+      }).toThrowError('No Secret Specified');
+    });
+    test('test transforming empty secret / key', () => {
+      expect( () => {
+        helpers.transformKeyToFormat('');
+      }).toThrowError('Secret cannot be empty string');
+    });
+    test('test transforming from Binary to PKCS8 format', () => {
+      expect( () => {
+        let formattedSecret = helpers.transformKeyToFormat(sampleBinaryKey);
+        expect(formattedSecret.indexOf('-----BEGIN PUBLIC KEY-----')).not.toEqual(-1);
+        expect(formattedSecret.indexOf('-----END PUBLIC KEY-----')).not.toEqual(-1);
+      }).not.toThrow();
+    });
+    test('test tranforming key in PKCS8 format', () => {
+      expect( () => {
+        let formattedSecret = helpers.transformKeyToFormat(samplePKCS8Key);
+        expect(formattedSecret).toEqual(samplePKCS8Key);
+      }).not.toThrow();
+    });
+    test('test transforming a key in wrong format', () => {
+      expect( () => {
+        helpers.transformKeyToFormat(sampleWrongKey);
+      }).toThrowError('Secret in Unsupported Format');
     });
   });
 });

@@ -18,6 +18,7 @@ let constants = {
 	CLAIM_USER_LOCALE: 'locale',
 	USER_ROLE_USER: 'user',
 	USER_ROLE_EDITOR: 'editor',
+	USER_TAGS: 'tags',
 };
 
 module.exports = constants;

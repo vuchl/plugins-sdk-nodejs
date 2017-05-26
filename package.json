@@ -4,8 +4,9 @@
   "description": "Staffbase plugin SDk for javascript / Node.JS",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test": "npm run build && jest",
+    "test:verbose": "npm run build && jest --verbose",
+    "test:coverage": "npm run build && jest --coverage",
     "build": "babel src --presets babel-preset-es2015 --out-dir dist",
     "prepublish": "npm run build && npm run readme",
     "readme": "node docSrc/buildDoc.js"

@@ -56,17 +56,18 @@ class SSOToken {
 			CLAIM_INSTANCE_ID: decoded.instance_id || null,
 			CLAIM_INSTANCE_NAME: decoded.instance_name || null,
 			CLAIM_USER_ID: decoded.sub || null,
-			CLAIM_USER_EXTERNAL_ID: decoded.externamId || null,
+			CLAIM_USER_EXTERNAL_ID: decoded.external_Id || null,
 			CLAIM_USER_FULL_NAME: decoded.name || null,
 			CLAIM_USER_FIRST_NAME: decoded.given_name || null,
 			CLAIM_USER_LAST_NAME: decoded.family_name || null,
 			CLAIM_USER_ROLE: decoded.role || null,
 			CLAIM_ENTITY_TYPE: decoded.type || null,
-			CLAIM_THEME_TEXT_COLOR: decoded.themingText || null,
-			CLAIM_THEME_BACKGROUND_COLOR: decoded.themingBg || null,
+			CLAIM_THEME_TEXT_COLOR: decoded.theming_text || null,
+			CLAIM_THEME_BACKGROUND_COLOR: decoded.theming_bg || null,
 			CLAIM_USER_LOCALE: decoded.locale || null,
 			USER_ROLE_USER: decoded.user || null,
 			USER_ROLE_EDITOR: decoded.editor || null,
+			USER_TAGS: decoded.tags || null,
 		});
 		// Decode Token Data
 		if (tokenDataInst instanceof TokenData === false) {

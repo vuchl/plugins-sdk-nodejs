@@ -8,6 +8,7 @@ SSOTokenData : SSOTokenData | SSOTokenData Class used to host the token data val
 ## Functions
 Global | Description
 ------ | -----------
+ssoMiddleWare(secret) ⇒ function | Mountable express middleware functions
 readKeyFile(path, cb) ⇒ string | Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
 asCert(cert, type) ⇒ string | asCert converts a binary encoded key to PKCS8 format
@@ -66,6 +67,7 @@ SSOTokenData Class used to host the token data values and provide getter functio
     * [.getThemeBackgroundColor()](#markdown-header-ssotokendatagetthemebackgroundcolor-nullstring) ⇒ null ⎮ string
     * [.getLocale()](#markdown-header-ssotokendatagetlocale-nullstring) ⇒ null ⎮ string
     * [.isEditor()](#markdown-header-ssotokendataiseditor-boolean) ⇒ boolean
+    * [.getTags()](#markdown-header-ssotokendatagettags-arraystring) ⇒ Array.<String>
 
 ### new SSOTokenData(tokenVals)
 SSO Token Data
@@ -211,6 +213,21 @@ on missing values. Only when the editor role is explicitly
 provided the user will be marked as editor.
 
 **Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+### ssoTokenData.getTags() ⇒ Array.<String>
+Get User Tags
+
+**Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
+**Returns**: Array.<String> - A String array containing user tags.  
+## ssoMiddleWare(secret) ⇒ function
+Mountable express middleware functions
+
+**Kind**: global function  
+**Returns**: function - Calls the next() handler in the roule handlers chain  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| secret | string | The secret public provided by StaffBase |
+
 ## readKeyFile(path, cb) ⇒ string
 Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
