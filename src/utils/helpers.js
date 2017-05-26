@@ -84,7 +84,6 @@ function transformKeyToFormat(key, type='PUBLIC KEY') {
   if (key === null || key === undefined) {
     throw new Error('No Secret Specified');
   }
-  // @TODO Write a test for this case
   if (typeof key !== 'string') {
     throw new Error('Key can only be a string value');
   }

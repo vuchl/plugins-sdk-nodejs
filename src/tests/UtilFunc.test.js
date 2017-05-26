@@ -99,6 +99,11 @@ describe('Testing Utilitiy functions', () => {
         helpers.transformKeyToFormat();
       }).toThrowError('No Secret Specified');
     });
+    test('test transforming a non string secret / key', () => {
+      expect( () => {
+        helpers.transformKeyToFormat({key: 'asdasdasd'});
+      }).toThrowError('Key can only be a string value');
+    });
     test('test transforming empty secret / key', () => {
       expect( () => {
         helpers.transformKeyToFormat('');
