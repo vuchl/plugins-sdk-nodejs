@@ -86,6 +86,6 @@ function transformKeyToFormat(key, type='PUBLIC KEY') {
   return key;
 }
 module.exports = {
-  readKeyFile,
-  transformKeyToFormat,
+  readKeyFile: readKeyFile,
+  transformKeyToFormat: transformKeyToFormat,
 };

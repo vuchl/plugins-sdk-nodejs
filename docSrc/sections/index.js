@@ -3,7 +3,7 @@ const handlebars = require('handlebars');
 const path = require('path');
 
 const pluginNpmUrl = 'http://npmjs.org/package/staffbase-plugins-nodejs';
-const pluginNpmName = 'staffbase-plugins-nodejs';
+const pluginNpmName = 'staffbase-sso';
 const apiRefPath = 'docs/API.MD';
 
 module.exports = {

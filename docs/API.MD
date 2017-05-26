@@ -10,6 +10,8 @@ Global | Description
 ------ | -----------
 readKeyFile(path, cb) ⇒ string | Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
+asCert(cert, type) ⇒ string | asCert converts a binary encoded key to PKCS8 format
+transformKeyToFormat(key, type) ⇒ string | Transforms the provided key to PKCS8 format for supported jwt algorithm.
 
 ## SSOToken
 SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
@@ -220,4 +222,26 @@ of the key to be used to decode token.
 | --- | --- | --- |
 | path | string | The path of the private key file. |
 | cb | function | Optional callback function to use this in an async way |
+
+## asCert(cert, type) ⇒ string
+asCert converts a binary encoded key to PKCS8 format
+
+**Kind**: global function  
+**Returns**: string - the PKCS8 representation of the key  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| cert | string |  | the binary endoded key string |
+| type | string | `"PUBLIC KEY"` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
+
+## transformKeyToFormat(key, type) ⇒ string
+Transforms the provided key to PKCS8 format for supported jwt algorithm.
+
+**Kind**: global function  
+**Returns**: string - The public key in PKCS8 format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| key | string |  | The public key file string. |
+| type | string | `"PUBLIC KEY"` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
 

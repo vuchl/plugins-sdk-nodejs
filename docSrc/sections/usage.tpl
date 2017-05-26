@@ -79,3 +79,47 @@ The following data can be retrieved from the token:
 |CLAIM_USER_LOCALE|locale|getLocale()|Get the locale of the requesting user in the format of language tags.|
 
 It is not guaranteed that the token would contain information of all the keys. If there is no value for the corresponding field, the SDK would return a `null` value.
+
+## Using with Express
+You can use the provided helper middleware to simply mount it to your express server and get an instance of SSOTokenData class in your Express request object.
+
+You need to provide your secret key to the middleware so it can decode the data. The key can be provided in the constructor or by setting an Environment variable: `STAFFBASE_SSO_SECRET`.
+
+To provide the key using contructor:
+```javascript
+const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
+const SSOMiddleware = require('staffbase-sso').middleware;
+let ssoMiddleWare = ssoMiddleWare(ssoSecret)
+```
+
+After getting an instance of the middleware function, you can simply mount it to your SSO URL of the plugin. If the secret is fine and the middleware is able to decode the token,
+an instance of `SSOTokenData` can be used in `req.sbSSO`.
+
+```javascript
+const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
+const SSOMiddleware = require({{pluginNpmName}}).middleware;
+let ssoMiddleWare = ssoMiddleWare(ssoSecret)
+
+const redirectURL = '/staffbasae/sso/backoffice';
+var express = require('express');
+var app = express();
+// Apply middleware on the SSO URL
+app.use(redirectURL, ssoMiddleWare);
+// Your request handler below
+app.get(redirectURL, function(req, res, next) {
+  // Middleware was able to decode the token
+  // console.log('Got SSO Request from backend', req.query);
+  if (req.sbSSO) {
+    let ssoTokenData = req.sbSSO
+    // Send back the token data back.
+    res.json(ssoTokenData);
+    return res.end();
+  }
+  res.json({
+    error: {
+      msg: "Unable to get token information."
+    }
+  });
+  return res.end();
+})
+```

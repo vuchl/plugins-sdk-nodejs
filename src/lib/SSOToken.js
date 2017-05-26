@@ -37,6 +37,7 @@ class SSOToken {
 		// Verify Token
 		try {
 			decoded = jwt.verify(tokenData, appSecret, {algorithms: ['RS256']});
+			// console.log('Decoded Data:', decoded);
 		} catch(err) {
 			if (err.message === 'invalid algorithm') {
 				throw new Error('Token Algorithm in not encoded in a supported format');
@@ -52,13 +53,13 @@ class SSOToken {
 			CLAIM_NOT_BEFORE: decoded.nbf || null,
 			CLAIM_ISSUED_AT: decoded.iat || null,
 			CLAIM_ISSUER: decoded.iss || null,
-			CLAIM_INSTANCE_ID: decoded.instanceId || null,
-			CLAIM_INSTANCE_NAME: decoded.instanceName || null,
+			CLAIM_INSTANCE_ID: decoded.instance_id || null,
+			CLAIM_INSTANCE_NAME: decoded.instance_name || null,
 			CLAIM_USER_ID: decoded.sub || null,
 			CLAIM_USER_EXTERNAL_ID: decoded.externamId || null,
 			CLAIM_USER_FULL_NAME: decoded.name || null,
-			CLAIM_USER_FIRST_NAME: decoded.givenName || null,
-			CLAIM_USER_LAST_NAME: decoded.familyName || null,
+			CLAIM_USER_FIRST_NAME: decoded.given_name || null,
+			CLAIM_USER_LAST_NAME: decoded.family_name || null,
 			CLAIM_USER_ROLE: decoded.role || null,
 			CLAIM_ENTITY_TYPE: decoded.type || null,
 			CLAIM_THEME_TEXT_COLOR: decoded.themingText || null,
@@ -72,7 +73,7 @@ class SSOToken {
 			throw new Error('Token Data is not an instance of TokenData class');
 		}
 		this.appSecret = appSecret;
-		this.tokenData = tokenData;
+		this.tokenData = tokenDataInst;
 	}
 	/**
 	 * Get  TokenData Object parsed by the SSOToken class.
