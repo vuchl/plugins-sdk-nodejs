@@ -63,15 +63,15 @@ class SSOTokenData {
 		}
 	}
 	/**
-	 * Get signed string representation of the token data with a non supported
-	 * (by Staffbase) Algotirhm.
+	 * Get a wrong signed string representation of the token data with a non supported
+	 * (by Staffbase) Algotirhm. (Private). Used for tests
 	 * @param  {String}   secret The Secret to be used for signing the token
 	 * @param  {Function} cb     Optional callback function to get the signed data
 	 * in a callback pattern.
 	 * @return {String}          Signed representation of the token data. Returns
 	 * if no callback is specified.
 	 */
-	getSignedWrong(secret, cb) {
+	_getSignedWrong(secret, cb) {
 		// using callback pattern for legacy support. No Promises
 		if (!secret) {
 			if (!cb) {

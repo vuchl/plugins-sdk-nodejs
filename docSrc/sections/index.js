@@ -6,6 +6,8 @@ const pluginNpmUrl = 'http://npmjs.org/package/staffbase-plugins-nodejs';
 const pluginNpmName = 'staffbase-sso';
 const apiRefPath = 'docs/API.MD';
 
+const SBConsts = require('../../src/utils/tokenDataConsts.js');
+
 module.exports = {
 	getTplPromise: function() {
 		let overviewPromise = new Promise( (resolve, reject) => {
@@ -52,6 +54,8 @@ module.exports = {
 					let tpl = handlebars.compile(usageTpl.toString());
 					let rendered = tpl({
 						pluginNpmName: pluginNpmName,
+						secretKeyEnv: SBConsts.secretKeyEnv,
+						pluginIDEnv: SBConsts.pluginIDEnv,
 					});
 					resolve(rendered);
 				}

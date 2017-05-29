@@ -1,10 +1,12 @@
-After installation you just need to include the module in  your own Javascript Program. The  module can be included using the following syntax:
+After installation you just need to include the module in  your own Javascript Program.
+The module can be included using the following syntax:
 
 ```javascript
 const StaffBaseSSO = require('{{pluginNpmName}}').sso
 ```
 ## About secret token
-Staffbase backend support only RS256 algorithm of JWT which means that the secret you should provide must be the content of public key in the `PKCS8` format.
+Staffbase backend support only RS256 algorithm of JWT which means that the secret
+you should provide must be the content of public key in the `PKCS8` format.
 This means your public key should start and end with tags:
 
 ```
@@ -40,7 +42,8 @@ You can use the helper function to read and verify if your public key is in the 
 You can then use keySecret to get an instance of StaffBaseSSO class.
 
 ## Getting the SSOTokenData instance
-You should have got your Secret key file from Staffbase. After receiving the token from the Staffbase backend, you can use the module to get the contents of the token.
+You should have got your Secret key file from Staffbase. After receiving the token
+from the Staffbase backend, you can use the module to get the contents of the token.
 
 ```javascript
 const secretToken = '[Your Secret Token Here]';
@@ -54,7 +57,8 @@ try {
 }
 ```
 
-If no exception is thrown, you would get a SSOTokenData instance in the tokenData variable which you can use to get contents of the SSO Token.
+If no exception is thrown, you would get a SSOTokenData instance in the tokenData
+variable which you can use to get contents of the SSO Token.
 
 The following data can be retrieved from the token:
 
@@ -78,12 +82,15 @@ The following data can be retrieved from the token:
 |CLAIM_THEME_BACKGROUND_COLOR|theming_bg|getThemeBackgroundColor()|Get background color used in the overall theme for this audience.|
 |CLAIM_USER_LOCALE|locale|getLocale()|Get the locale of the requesting user in the format of language tags.|
 
-It is not guaranteed that the token would contain information of all the keys. If there is no value for the corresponding field, the SDK would return a `null` value.
+It is not guaranteed that the token would contain information of all the keys.
+If there is no value for the corresponding field, the SDK would return a `null` value.
 
 ## Using with Express
-You can use the provided helper middleware to simply mount it to your express server and get an instance of SSOTokenData class in your Express request object.
+You can use the provided helper middleware to simply mount it to your express
+server and get an instance of SSOTokenData class in your Express request object.
 
-You need to provide your secret key to the middleware so it can decode the data. The key can be provided in the constructor or by setting an Environment variable: `STAFFBASE_SSO_SECRET`.
+You need to provide your *Secret Key* and *Plugin ID* to the middleware so it can decode the data.
+The key can be provided in the constructor or by setting an Environment variables `{{secretKeyEnv}}` and `{{pluginIDEnv}}` respectively.
 
 To provide the key using contructor:
 ```javascript
@@ -92,7 +99,8 @@ const SSOMiddleware = require('staffbase-sso').middleware;
 let ssoMiddleWare = ssoMiddleWare(ssoSecret)
 ```
 
-After getting an instance of the middleware function, you can simply mount it to your SSO URL of the plugin. If the secret is fine and the middleware is able to decode the token,
+After getting an instance of the middleware function, you can simply mount it to your
+SSO URL of the plugin. If the secret is fine and the middleware is able to decode the token,
 an instance of `SSOTokenData` can be used in `req.sbSSO`.
 
 ```javascript

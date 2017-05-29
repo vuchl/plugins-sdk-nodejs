@@ -9,10 +9,11 @@ SSOTokenData : SSOTokenData | SSOTokenData Class used to host the token data val
 Global | Description
 ------ | -----------
 ssoMiddleWare(secret) ⇒ function | Mountable express middleware functions
-readKeyFile(path, cb) ⇒ string | Reads public key file from the specified path and returns a string representation
+readKeyFile(path, cb) ⇒ String | Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
 asCert(cert, type) ⇒ string | asCert converts a binary encoded key to PKCS8 format
-transformKeyToFormat(key, type) ⇒ string | Transforms the provided key to PKCS8 format for supported jwt algorithm.
+isPKCS8Format(key, type) ⇒ Boolean | Checks if the format of the key is similar to PKCS8 Format.
+transformKeyToFormat(key, type) ⇒ String | Transforms the provided key to PKCS8 format for supported jwt algorithm.
 
 ## SSOToken
 SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
@@ -228,16 +229,16 @@ Mountable express middleware functions
 | --- | --- | --- |
 | secret | string | The secret public provided by StaffBase |
 
-## readKeyFile(path, cb) ⇒ string
+## readKeyFile(path, cb) ⇒ String
 Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
 
 **Kind**: global function  
-**Returns**: string - String representation of the key file  
+**Returns**: String - String representation of the key file  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| path | string | The path of the private key file. |
+| path | String | The path of the private key file. |
 | cb | function | Optional callback function to use this in an async way |
 
 ## asCert(cert, type) ⇒ string
@@ -251,14 +252,25 @@ asCert converts a binary encoded key to PKCS8 format
 | cert | string |  | the binary endoded key string |
 | type | string | `"PUBLIC KEY"` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
 
-## transformKeyToFormat(key, type) ⇒ string
-Transforms the provided key to PKCS8 format for supported jwt algorithm.
+## isPKCS8Format(key, type) ⇒ Boolean
+Checks if the format of the key is similar to PKCS8 Format.
 
 **Kind**: global function  
-**Returns**: string - The public key in PKCS8 format.  
+**Returns**: Boolean - true if its similat to PKCS8 otherwise false.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| key | string |  | The public key file string. |
-| type | string | `"PUBLIC KEY"` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
+| key | String |  | The public key file string. |
+| type | String | `PUBLIC KEY` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
+
+## transformKeyToFormat(key, type) ⇒ String
+Transforms the provided key to PKCS8 format for supported jwt algorithm.
+
+**Kind**: global function  
+**Returns**: String - The public key in PKCS8 format.  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| key | String |  | The public key file string. |
+| type | String | `PUBLIC KEY` | the type of key 'PUBLIC KEY'|'PRIVATE KEY' |
 

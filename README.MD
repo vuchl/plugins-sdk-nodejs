@@ -129,6 +129,7 @@ var app = express();
 app.use('/frontEnd', ssoMiddleWare);
 app.get('/frontEnd', function(req, res) {
   if (req.sbSSO) {
+    // Render the decoded object using Express templating engine
     return res.render('plugin', req.sbSSO);
   }
   return res.end("Unable to decode token data");
@@ -152,7 +153,7 @@ app.get(redirectURL, function(req, res, next) {
     }
   });
   return res.end();
-})
+});
 ```
 
 

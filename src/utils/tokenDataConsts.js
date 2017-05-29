@@ -19,6 +19,9 @@ let constants = {
 	USER_ROLE_USER: 'user',
 	USER_ROLE_EDITOR: 'editor',
 	USER_TAGS: 'tags',
+	// Default ENV Vars
+	secretKeyEnv: 'STAFFBASE_SSO_SECRET',
+	pluginIDEnv: 'STAFFBASE_SSO_AUDIENCE',
 };
 
 module.exports = constants;

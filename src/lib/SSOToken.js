@@ -1,6 +1,5 @@
 let TokenData = require('./SSOTokenData');
 let jwt = require('jsonwebtoken');
-
 /**
  * SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
  */
@@ -8,10 +7,11 @@ class SSOToken {
 
 	/**
 	 * Create an instance of SSOToken to parse signed token data received from StaffBase backend.
-	 * @param  {string} appSecret	App Secret used to decode the token data
-	 * @param  {string} tokenData 	Signed Token Data to be decoded
+	 * @param {String} appSecret	App Secret used to decode the token data
+	 * @param {String} tokenData Signed Token Data to be decoded
+	 * @param	{String} audience Audience parma of jwt. This is the your plugin ID registered in StaffBase servers
 	 */
-	constructor(appSecret, tokenData) {
+	constructor(appSecret, tokenData, audience) {
 		// Check Validity of appSecret
 		if (appSecret === undefined || appSecret === null) {
 			// App secret not specified
@@ -34,17 +34,35 @@ class SSOToken {
 			throw new Error('Token Data cannot be an empty string');
 		}
 		let decoded = null;
+		// CHeck validity of audience
+		if (audience === undefined || audience === null) {
+			throw new Error('Audience null or not specified');
+		}
+		if (typeof audience !== 'string') {
+			throw new Error('Audience must be a string value');
+		}
+		if (!audience.trim()) {
+			throw new Error('Audience cannot be an empty string');
+		}
 		// Verify Token
 		try {
-			decoded = jwt.verify(tokenData, appSecret, {algorithms: ['RS256']});
+			const jwtOpts = {
+				algorithms: ['RS256'],
+				audience: audience,
+			};
+			decoded = jwt.verify(tokenData, appSecret, jwtOpts);
 			// console.log('Decoded Data:', decoded);
 		} catch(err) {
 			if (err.message === 'invalid algorithm') {
 				throw new Error('Token Algorithm in not encoded in a supported format');
 			}
-			if (err.toString().indexOf('PEM_read_bio_PUBKEY failed') !== -1) {
+			if (err.message.indexOf('PEM_read_bio_PUBKEY failed') !== -1) {
 				throw new Error('Unable to read public key');
 			}
+			if (err.message.indexOf('jwt audience invalid') !== -1) {
+				throw new Error('Incorrect audience value');
+			}
+			console.log('Unhandled jwt error');
 			throw new Error(err);
 		}
 		let tokenDataInst = new TokenData({
