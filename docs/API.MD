@@ -8,7 +8,7 @@ SSOTokenData : SSOTokenData | SSOTokenData Class used to host the token data val
 ## Functions
 Global | Description
 ------ | -----------
-ssoMiddleWare(secret) ⇒ function | Mountable express middleware functions
+ssoMiddleWare(secret, audience) ⇒ function | Mountable express middleware functions
 readKeyFile(path, cb) ⇒ String | Reads public key file from the specified path and returns a string representation
 of the key to be used to decode token.
 asCert(cert, type) ⇒ string | asCert converts a binary encoded key to PKCS8 format
@@ -21,22 +21,23 @@ SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
 **Kind**: global class  
 
 * [SSOToken](#markdown-header-ssotoken)
-    * [new SSOToken(appSecret, tokenData)](#markdown-header-new-ssotokenappsecret-tokendata)
+    * [new SSOToken(appSecret, tokenData, audience)](#markdown-header-new-ssotokenappsecret-tokendata-audience)
     * [.getTokenData()](#markdown-header-ssotokengettokendata-ssotokendata) ⇒ SSOTokenData
 
-### new SSOToken(appSecret, tokenData)
+### new SSOToken(appSecret, tokenData, audience)
 Create an instance of SSOToken to parse signed token data received from StaffBase backend.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| appSecret | string | App Secret used to decode the token data |
-| tokenData | string | Signed Token Data to be decoded |
+| appSecret | String | App Secret used to decode the token data |
+| tokenData | String | Signed Token Data to be decoded |
+| audience | String | Audience parma of jwt. This is the your plugin ID registered in StaffBase servers |
 
 ### ssoToken.getTokenData() ⇒ SSOTokenData
 Get  TokenData Object parsed by the SSOToken class.
 
-**Kind**: instance method of [SSOToken](#markdown-header-new-ssotokenappsecret-tokendata)  
+**Kind**: instance method of [SSOToken](#markdown-header-new-ssotokenappsecret-tokendata-audience)  
 **Returns**: SSOTokenData - a TokenData object which can be used  to get SSO Token inforamtion.  
 ## SSOTokenData : SSOTokenData
 SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
@@ -46,7 +47,7 @@ SSOTokenData Class used to host the token data values and provide getter functio
 * [SSOTokenData](#markdown-header-ssotokendata-ssotokendata) : [SSOTokenData](#markdown-header-ssotokendata-ssotokendata)
     * [new SSOTokenData(tokenVals)](#markdown-header-new-ssotokendatatokenvals)
     * [.getSigned(secret, cb)](#markdown-header-ssotokendatagetsignedsecret-cb-string) ⇒ String
-    * [.getSignedWrong(secret, cb)](#markdown-header-ssotokendatagetsignedwrongsecret-cb-string) ⇒ String
+    * [._getSignedWrong(secret, cb)](#markdown-header-ssotokendata_getsignedwrongsecret-cb-string) ⇒ String
     * [.toJSObj()](#markdown-header-ssotokendatatojsobj-object) ⇒ Object
     * [.toJSObjPretty()](#markdown-header-ssotokendatatojsobjpretty-object) ⇒ Object
     * [._getClaim(claimName)](#markdown-header-ssotokendata_getclaimclaimname-stringnumbernull) ⇒ String ⎮ number ⎮ null
@@ -90,9 +91,9 @@ if no callback is specified.
 | secret | String | The Secret to be used for signing the token. The supported algorithm is RS256 so it is important that the secret is read from a private key file. |
 | cb | function | Optional callback function to get the signed data in a callback pattern. |
 
-### ssoTokenData.getSignedWrong(secret, cb) ⇒ String
-Get signed string representation of the token data with a non supported
-(by Staffbase) Algotirhm.
+### ssoTokenData._getSignedWrong(secret, cb) ⇒ String
+Get a wrong signed string representation of the token data with a non supported
+(by Staffbase) Algotirhm. (Private). Used for tests
 
 **Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
 **Returns**: String - Signed representation of the token data. Returns
@@ -219,7 +220,7 @@ Get User Tags
 
 **Kind**: instance method of [SSOTokenData](#markdown-header-new-ssotokendatatokenvals)  
 **Returns**: Array.<String> - A String array containing user tags.  
-## ssoMiddleWare(secret) ⇒ function
+## ssoMiddleWare(secret, audience) ⇒ function
 Mountable express middleware functions
 
 **Kind**: global function  
@@ -228,6 +229,7 @@ Mountable express middleware functions
 | Param | Type | Description |
 | --- | --- | --- |
 | secret | string | The secret public provided by StaffBase |
+| audience | String | Audience parma of jwt. This is the your plugin ID registered in StaffBase servers |
 
 ## readKeyFile(path, cb) ⇒ String
 Reads public key file from the specified path and returns a string representation
