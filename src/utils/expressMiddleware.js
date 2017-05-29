@@ -23,7 +23,6 @@ function ssoMiddleWare(secret, audience) {
     console.log('Unable to transform key to right format.', err);
     formattedSecret = null;
   }
-  console.log('Formatted key is:', formattedSecret);
   return function(req, res, next) {
     if (!formattedSecret) {
       console.log('Unsupported secret.');
@@ -35,7 +34,6 @@ function ssoMiddleWare(secret, audience) {
         let SSOContents = new StaffBaseSSO(formattedSecret, token, audience);
         let tokenData = SSOContents.getTokenData();
         req.sbSSO = tokenData;
-        console.log('TokenData:', tokenData);
         return next();
       } catch(tokenErr) {
         console.log('Error decoding token:', tokenErr);

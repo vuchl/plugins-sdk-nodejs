@@ -130,8 +130,8 @@ const SSOMiddleware = require(staffbase-sso).middleware;
 let ssoMiddleWare = SSOMiddleware(ssoSecret);
 
 const redirectURL = '/staffbasae/sso/backoffice';
-var express = require('express');
-var app = express();
+let express = require('express');
+let app = express();
 
 // Request Handler for client side of plugin
 app.use('/frontEnd', ssoMiddleWare);
@@ -146,11 +146,11 @@ app.get('/frontEnd', function(req, res) {
 // Apply middleware on the SSO URL
 app.use(redirectURL, ssoMiddleWare);
 // Your request handler for admin side of plugin below
-app.get(redirectURL, function(req, res, next) {
+app.get(redirectURL, function(req, res) {
   // Middleware was able to decode the token
   // console.log('Got SSO Request from backend', req.query);
   if (req.sbSSO) {
-    let ssoTokenData = req.sbSSO
+    let ssoTokenData = req.sbSSO;
     // Send back the token data back.
     res.json(ssoTokenData);
     return res.end();

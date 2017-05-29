@@ -62,7 +62,7 @@ class SSOToken {
 			if (err.message.indexOf('jwt audience invalid') !== -1) {
 				throw new Error('Incorrect audience value');
 			}
-			console.log('Unhandled jwt error');
+			// console.log('Unhandled jwt error', err);
 			throw new Error(err);
 		}
 		let tokenDataInst = new TokenData({
