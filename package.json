@@ -1,7 +1,7 @@
 {
-  "name": "staffbase-sso",
+  "name": "staffbase-sdk",
   "version": "1.0.0",
-  "description": "Staffbase plugin SDk for javascript / Node.JS",
+  "description": "Staffbase plugin SDK for javascript / Node.JS",
   "main": "./dist/index.js",
   "scripts": {
     "test": "npm run build && jest",
