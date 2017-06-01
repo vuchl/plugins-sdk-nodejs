@@ -20,7 +20,10 @@ function ssoMiddleWare(secret, audience) {
   try {
     formattedSecret = helpers.transformKeyToFormat(secret);
   } catch (err) {
-    console.log('Unable to transform key to right format.', err);
+    console.log('Unable to transform key to right format.', err.message);
+    console.log(`
+There was an error in initializing the middleware handler.\
+You might notbe able to decode the token data`);
     formattedSecret = null;
   }
   return function(req, res, next) {
