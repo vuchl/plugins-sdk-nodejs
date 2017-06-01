@@ -21,15 +21,16 @@
   "author": "Hassaan Zaidi <hassaanz@gmail.com>",
   "license": "ISC",
   "devDependencies": {
+    "@staffbase/eslint-config-staffbase": "^0.1.1",
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "dmd-bitbucket": "^0.1.10",
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.1",
-    "eslint-plugin-react": "^6.10.3",
     "handlebars": "^4.0.6",
     "jest": "^19.0.2",
     "jsdoc-to-markdown": "^3.0.0",
+    "node-rsa": "^0.4.2",
     "pre-commit": "^1.2.2"
   },
   "dependencies": {

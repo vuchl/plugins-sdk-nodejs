@@ -62,3 +62,6 @@ dist
 
 #IntelliJ Idea
 .idea
+
+# DS_Store file created by OSx
+.DS_Store
