@@ -45,6 +45,15 @@ class SSOTokenData {
 	 * if no callback is specified.
 	 */
 	getSigned(secret, cb) {
+		if(secret && typeof secret !== 'string') {
+			if (!cb) {
+				throw new Error('Secret must be a string value');
+			}
+			cb('Secret must be a string value');
+		}
+		if (cb && typeof cb !== 'function') {
+			throw new Error('Callback must be a function');
+		}
 		// using callback pattern for legacy support. No Promises
 		if (!secret) {
 			if (!cb) {

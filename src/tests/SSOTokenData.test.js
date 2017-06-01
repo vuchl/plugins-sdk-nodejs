@@ -1,8 +1,12 @@
 const SSOTokenData = require('../lib/SSOTokenData');
+const fs = require('fs');
+const path = require('path');
 
 let curTime = Math.floor(Date.now() / 1000);
 let expTime = Math.floor(Date.now() / 1000) + (60 * 60);
 let notBeforeTime = curTime - (1000 * 60);
+
+const secretPub = fs.readFileSync(path.join(__dirname, '../../testKeyFiles/jwtRS256.key')).toString();
 
 let tokenDataVals = {
     CLAIM_AUDIENCE: 'testPlugin',
@@ -26,15 +30,48 @@ let tokenDataVals = {
     USER_ROLE_EDITOR: 'editor',
 };
 let SSOTokenDataObj = new SSOTokenData(tokenDataVals);
+// jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('Testing SSOTokenData Class', () => {
 	describe('Testing SSOTokenData.getSigned', () => {
 		describe('Sync mode', () => {
+      test('Test secret to be non string', () => {
+        expect( () => {
+          SSOTokenDataObj.getSigned({});
+        }).toThrowError('Secret must be a string value');
+      });
 			test('Should throw error if no secret specified', () => {
 				expect( () => {
 					SSOTokenDataObj.getSigned();
 				}).toThrowError('No secret specified');
 			});
+      test('Should return signed value if secret specified', () => {
+        expect( () => {
+          let signed = SSOTokenDataObj.getSigned(secretPub);
+          expect(signed).not.toBeFalsy();
+        }).not.toThrow();
+      });
 		});
+    describe('Async mode', () => {
+      // test('Test secret to be non string', (done) => {
+      //   SSOTokenDataObj.getSigned({}, (err, secret) => {
+      //     console.log(err);
+      //     expect(err).toEqual('Secret must be a string value');
+      //   });
+      // });
+      test('Should return error if no secret specified', (done) => {
+        SSOTokenDataObj.getSigned(null, (err, signed) => {
+          expect(err).toBe('No secret specified');
+          done();
+        });
+      });
+      test('Should return signed value in callback if secret specified', (done) => {
+        SSOTokenDataObj.getSigned(secretPub, (err, signed) => {
+          expect(err).toBeFalsy();
+          expect(signed).not.toBeFalsy();
+          done();
+        });
+      });
+    });
 	});
 });
