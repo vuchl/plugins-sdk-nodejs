@@ -1,4 +1,4 @@
-# Staffbase Plugins SDK for Node.JS.
+# Staffbase Plugins SDK for Node.js.
 
 {{{overview}}}
 

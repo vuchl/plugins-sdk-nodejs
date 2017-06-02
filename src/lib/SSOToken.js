@@ -7,11 +7,22 @@ class SSOToken {
 
 	/**
 	 * Create an instance of SSOToken to parse signed token data received from StaffBase backend.
+	 * @param	{String} audience Audience param of jwt. This is the your plugin ID registered in StaffBase servers
 	 * @param {String} appSecret	App Secret used to decode the token data
 	 * @param {String} tokenData Signed Token Data to be decoded
-	 * @param	{String} audience Audience parma of jwt. This is the your plugin ID registered in StaffBase servers
 	 */
-	constructor(appSecret, tokenData, audience) {
+	constructor(audience, appSecret, tokenData) {
+    // Check validity of audience
+    if (audience === undefined || audience === null) {
+      throw new Error('Audience null or not specified');
+    }
+    if (typeof audience !== 'string') {
+      throw new Error('Audience must be a string value');
+    }
+    if (!audience.trim()) {
+      throw new Error('Audience cannot be an empty string');
+    }
+
 		// Check Validity of appSecret
 		if (appSecret === undefined || appSecret === null) {
 			// App secret not specified
@@ -23,6 +34,7 @@ class SSOToken {
 		if (!appSecret.trim()) {
 			throw new Error('App Secret cannot be an empty string');
 		}
+
 		// Check Validity of tokenData
 		if (tokenData === undefined || tokenData === null) {
 			throw new Error('Token Data null or not specified');
@@ -34,16 +46,7 @@ class SSOToken {
 			throw new Error('Token Data cannot be an empty string');
 		}
 		let decoded = null;
-		// CHeck validity of audience
-		if (audience === undefined || audience === null) {
-			throw new Error('Audience null or not specified');
-		}
-		if (typeof audience !== 'string') {
-			throw new Error('Audience must be a string value');
-		}
-		if (!audience.trim()) {
-			throw new Error('Audience cannot be an empty string');
-		}
+
 		// Verify Token
 		try {
 			const jwtOpts = {

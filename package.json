@@ -1,7 +1,7 @@
 {
-  "name": "staffbase-sdk",
+  "name": "staffbase-plugin-sdk",
   "version": "1.0.0",
-  "description": "Staffbase plugin SDK for javascript / Node.JS",
+  "description": "Staffbase Plugin SDK for Javascript / Node.js",
   "main": "./dist/index.js",
   "scripts": {
     "test": "npm run build && jest",
@@ -18,7 +18,7 @@
     "jwt",
     "authentication"
   ],
-  "author": "Hassaan Zaidi <hassaanz@gmail.com>",
+  "author": "Hassaan Zaidi <hassaan@staffbase.com>",
   "license": "ISC",
   "devDependencies": {
     "@staffbase/eslint-config-staffbase": "^0.1.1",

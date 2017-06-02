@@ -21,23 +21,23 @@ SSOToken Class. Used as an interface to decode the Staffbase SSO Token.
 **Kind**: global class  
 
 * [SSOToken](#markdown-header-ssotoken)
-    * [new SSOToken(appSecret, tokenData, audience)](#markdown-header-new-ssotokenappsecret-tokendata-audience)
+    * [new SSOToken(audience, appSecret, tokenData)](#markdown-header-new-ssotokenaudience-appsecret-tokendata)
     * [.getTokenData()](#markdown-header-ssotokengettokendata-ssotokendata) ⇒ SSOTokenData
 
-### new SSOToken(appSecret, tokenData, audience)
+### new SSOToken(audience, appSecret, tokenData)
 Create an instance of SSOToken to parse signed token data received from StaffBase backend.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
+| audience | String | Audience param of jwt. This is the your plugin ID registered in StaffBase servers |
 | appSecret | String | App Secret used to decode the token data |
 | tokenData | String | Signed Token Data to be decoded |
-| audience | String | Audience parma of jwt. This is the your plugin ID registered in StaffBase servers |
 
 ### ssoToken.getTokenData() ⇒ SSOTokenData
 Get  TokenData Object parsed by the SSOToken class.
 
-**Kind**: instance method of [SSOToken](#markdown-header-new-ssotokenappsecret-tokendata-audience)  
+**Kind**: instance method of [SSOToken](#markdown-header-new-ssotokenaudience-appsecret-tokendata)  
 **Returns**: SSOTokenData - a TokenData object which can be used  to get SSO Token inforamtion.  
 ## SSOTokenData : SSOTokenData
 SSOTokenData Class used to host the token data values and provide getter functions to extract correspinding values.
