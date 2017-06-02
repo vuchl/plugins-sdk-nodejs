@@ -11,14 +11,14 @@ jsdoc2md.render({
 })
 .then( (mdData) => {
 	// Copy JSDoc file to docs folder
-	fs.writeFile(path.join(__dirname, '../docs/API.MD'), mdData, (err, done) => {
+	fs.writeFile(path.join(__dirname, '../docs/API.MD'), mdData, (err) => {
 		if (err) {
 			return Promise.reject(err);
 		}
 		return Promise.resolve('File Written');
 	});
 })
-.then( (out) => {
+.then( () => {
 	// Generate Readme.MD from Template
 	return sections.getTplPromise();
 })
@@ -58,6 +58,6 @@ jsdoc2md.render({
 		});
 	});
 })
-.then( (res) => {
+.then( () => {
 	console.log('Completed Document Generation');
 });

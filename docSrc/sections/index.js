@@ -11,7 +11,7 @@ const SBConsts = require('../../src/utils/tokenDataConsts.js');
 module.exports = {
 	getTplPromise: function() {
 		let overviewPromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './overview.tpl'), (err, overviewData) => {
+			fs.readFile(path.join(__dirname, 'overview.tpl'), (err, overviewData) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -20,7 +20,7 @@ module.exports = {
 			});
 		});
 		let installationPromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './installation.tpl'), (err, installationTpl) => {
+			fs.readFile(path.join(__dirname, 'installation.tpl'), (err, installationTpl) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -34,7 +34,7 @@ module.exports = {
 			});
 		});
 		let apiRefPromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './reference.tpl'), (err, apiRefTpl) => {
+			fs.readFile(path.join(__dirname, 'reference.tpl'), (err, apiRefTpl) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -47,7 +47,7 @@ module.exports = {
 			});
 		});
 		let usagePromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './usage.tpl'), (err, usageTpl) => {
+			fs.readFile(path.join(__dirname, 'usage.tpl'), (err, usageTpl) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -62,7 +62,7 @@ module.exports = {
 			});
 		});
 		let contributionPromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './contribution.tpl'), (err, contribTpl) => {
+			fs.readFile(path.join(__dirname, 'contribution.tpl'), (err, contribTpl) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -75,7 +75,7 @@ module.exports = {
 			});
 		});
 		let testPromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './tests.tpl'), (err, testsTpl) => {
+			fs.readFile(path.join(__dirname, 'tests.tpl'), (err, testsTpl) => {
 				if (err) {
 					reject(err);
 				} else {
@@ -88,7 +88,7 @@ module.exports = {
 			});
 		});
 		let licensePromise = new Promise( (resolve, reject) => {
-			fs.readFile(path.join(__dirname, './license.tpl'), (err, licenseTpl) => {
+			fs.readFile(path.join(__dirname, 'license.tpl'), (err, licenseTpl) => {
 				if (err) {
 					reject(err);
 				} else {

@@ -14,18 +14,6 @@ This means your public key should start and end with tags:
 BASE64 ENCODED DATA
 -----END PUBLIC KEY-----
 ```
-Within the base64 encoded data the following DER structure is present:
-```
-PublicKeyInfo ::= SEQUENCE {
-  algorithm       AlgorithmIdentifier,
-  PublicKey       BIT STRING
-}
-
-AlgorithmIdentifier ::= SEQUENCE {
-  algorithm       OBJECT IDENTIFIER,
-  parameters      ANY DEFINED BY algorithm OPTIONAL
-}
-```
 
 You can use the helper function to read and verify if your public key is in the supported format.
 ```javascript
@@ -42,18 +30,20 @@ You can use the helper function to read and verify if your public key is in the 
 You can then use keySecret to get an instance of StaffBaseSSO class.
 
 ## Getting the SSOTokenData instance
-You should have got your Secret key file from Staffbase. After receiving the token
+You should have got your plugin id and Public Key file from Staffbase. After receiving the jwt token
 from the Staffbase backend, you can use the module to get the contents of the token.
 
 ```javascript
-const secretToken = '[Your Secret Token Here]';
-const jwtToken = '[Received JWT Token Here]';
+const pluginId = '[As received from Staffbase]';
+const publicKey = '[As received from Staffbase]';
+const jwtToken = '[As received in current request via jwt query parameter]';
 let tokenData = null;
 try {
-	let SSOContents = new StaffBaseSSO(secretToken, jwtToken);
+	let SSOContents = new StaffBaseSSO(pluginId, publicKey, jwtToken);
 	tokenData = SSOContents.getTokenData();
+  console.log('Received token data:', tokenData);
 } catch(tokenErr) {
-	console.log('Error decoding token:', tokenErr);
+	console.error('Error decoding token:', tokenErr);
 }
 ```
 
@@ -92,7 +82,7 @@ server and get an instance of SSOTokenData class in your Express request object.
 You need to provide your *Secret Key* and *Plugin ID* to the middleware so it can decode the data.
 The key can be provided in the constructor or by setting an Environment variables `{{secretKeyEnv}}` and `{{pluginIDEnv}}` respectively.
 
-To provide the key using contructor:
+To provide the key using constructor:
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
 const SSOMiddleware = require('staffbase-sso').middleware;
@@ -108,7 +98,7 @@ const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
 const SSOMiddleware = require({{pluginNpmName}}).middleware;
 let ssoMiddleWare = SSOMiddleware(ssoSecret);
 
-const redirectURL = '/staffbasae/sso/backoffice';
+const redirectURL = '/staffbase/sso/backoffice';
 let express = require('express');
 let app = express();
 

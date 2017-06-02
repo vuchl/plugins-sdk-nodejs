@@ -35,8 +35,7 @@ You might notbe able to decode the token data`);
       let token = req.query[TOKEN_QUERY_PARAM];
       try {
         let SSOContents = new StaffBaseSSO(formattedSecret, token, audience);
-        let tokenData = SSOContents.getTokenData();
-        req.sbSSO = tokenData;
+        req.sbSSO = SSOContents.getTokenData();
         return next();
       } catch(tokenErr) {
         console.log('Error decoding token:', tokenErr);
