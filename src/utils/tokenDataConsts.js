@@ -16,8 +16,6 @@ let constants = {
 	CLAIM_THEME_TEXT_COLOR: 'theming_text',
 	CLAIM_THEME_BACKGROUND_COLOR: 'theming_bg',
 	CLAIM_USER_LOCALE: 'locale',
-	USER_ROLE_USER: 'user',
-	USER_ROLE_EDITOR: 'editor',
 	USER_TAGS: 'tags',
 	// Default ENV Vars
 	secretKeyEnv: 'STAFFBASE_SSO_SECRET',
