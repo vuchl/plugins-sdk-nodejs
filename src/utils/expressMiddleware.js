@@ -34,7 +34,7 @@ You might notbe able to decode the token data`);
     if (req.query[TOKEN_QUERY_PARAM]) {
       let token = req.query[TOKEN_QUERY_PARAM];
       try {
-        let SSOContents = new StaffBaseSSO(formattedSecret, token, audience);
+        let SSOContents = new StaffBaseSSO(audience, formattedSecret, token);
         req.sbSSO = SSOContents.getTokenData();
         return next();
       } catch(tokenErr) {

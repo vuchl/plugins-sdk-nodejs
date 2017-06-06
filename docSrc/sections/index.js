@@ -3,7 +3,7 @@ const handlebars = require('handlebars');
 const path = require('path');
 
 const pluginNpmUrl = 'http://npmjs.org/package/staffbase-plugins-nodejs';
-const pluginNpmName = 'staffbase-sdk';
+const pluginNpmName = 'staffbase-plugin-sdk';
 const apiRefPath = 'docs/API.MD';
 
 const SBConsts = require('../../src/utils/tokenDataConsts.js');
