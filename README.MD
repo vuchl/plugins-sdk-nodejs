@@ -24,7 +24,7 @@ After installation you just need to include the module in your own Javascript Pr
 The module can be included using the following syntax:
 
 ```javascript
-const StaffBaseSSO = require('staffbase-plugin-sdk').sso
+const StaffBaseSSO = require('staffbase-plugin-sdk').sso;
 ```
 ## About secret token
 Staffbase backend support only RS256 algorithm of JWT which means that the secret
@@ -39,7 +39,7 @@ BASE64 ENCODED DATA
 
 You can use the helper function to read and verify if your public key is in the supported format.
 ```javascript
-const helpers = require(`staffbase-plugin-sdk`).helpers
+const helpers = require(`staffbase-plugin-sdk`).helpers;
 const publicKeyPath = '[[Your File Path]]';
 let keySecret;
 try {
@@ -154,6 +154,11 @@ app.get(redirectURL, function(req, res) {
   return res.end();
 });
 ```
+
+### Generating Express Template
+You can also use the `create-staffbase-plugin` CLI tool to start a template for a basic
+express server configured with the SDK. For more detail please check out the
+[Project Repo](https://github.com/Staffbase/create-staffbase-plugin-nodejs).
 
 
 ## Contribution
