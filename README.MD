@@ -7,11 +7,11 @@ If you are developing your own plugin for your Staffbase app we describe the aut
 
 The plugin SDK can be fetched from the npm registry (http://npmjs.org/package/staffbase-plugins-nodejs). You can use npm command line tool to install it locally.
 
-    npm install (staffbase-plugin-sdk)
+    npm install (@staffbase/staffbase-plugin-sdk)
 
 You can also save the module as a local dependency in your project package.json file with the following command:
 
-    npm install --save (staffbase-plugin-sdk)
+    npm install --save (@staffbase/staffbase-plugin-sdk)
 
 
 ## API Reference
@@ -24,7 +24,7 @@ After installation you just need to include the module in your own Javascript Pr
 The module can be included using the following syntax:
 
 ```javascript
-const StaffBaseSSO = require('staffbase-plugin-sdk').sso;
+const StaffBaseSSO = require('@staffbase/staffbase-plugin-sdk').sso;
 ```
 ## About secret token
 Staffbase backend support only RS256 algorithm of JWT which means that the secret
@@ -39,7 +39,7 @@ BASE64 ENCODED DATA
 
 You can use the helper function to read and verify if your public key is in the supported format.
 ```javascript
-const helpers = require(`staffbase-plugin-sdk`).helpers;
+const helpers = require(`@staffbase/staffbase-plugin-sdk`).helpers;
 const publicKeyPath = '[[Your File Path]]';
 let keySecret;
 try {
@@ -107,7 +107,7 @@ The key can be provided in the constructor or by setting an Environment variable
 To provide the key using constructor:
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
-const SSOMiddleware = require('staffbase-plugin-sdk').middleware;
+const SSOMiddleware = require('@staffbase/staffbase-plugin-sdk').middleware;
 let ssoMiddleWare = ssoMiddleWare(ssoSecret);
 ```
 
@@ -117,7 +117,7 @@ an instance of `SSOTokenData` can be used in `req.sbSSO`.
 
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
-const SSOMiddleware = require('staffbase-plugin-sdk').middleware;
+const SSOMiddleware = require('@staffbase/staffbase-plugin-sdk').middleware;
 let ssoMiddleWare = SSOMiddleware(ssoSecret);
 
 const redirectURL = '/staffbase/sso/backoffice';
