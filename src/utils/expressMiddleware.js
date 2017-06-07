@@ -2,7 +2,7 @@ const StaffBaseSSO = require('../lib/SSOToken');
 const helpers = require('./helpers');
 const TOKEN_QUERY_PARAM = 'jwt';
 
-const constants = require('./TokenDataConsts');
+const constants = require('./tokenDataConsts');
 const SECRET_ENV_VAR = constants.secretKeyEnv;
 const AUD_ENV_VAR = constants.pluginIDEnv;
 /**
