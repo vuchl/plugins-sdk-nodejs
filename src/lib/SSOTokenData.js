@@ -29,8 +29,6 @@ class SSOTokenData {
 		this.themingText = tokenVals.CLAIM_THEME_TEXT_COLOR;
 		this.themingBg = tokenVals.CLAIM_THEME_BACKGROUND_COLOR;
 		this.locale = tokenVals.CLAIM_USER_LOCALE;
-		this.user = tokenVals.USER_ROLE_USER;
-		this.editor = tokenVals.USER_ROLE_EDITOR;
 		this.tags		= tokenVals.USER_TAGS;
 	}
 
@@ -121,8 +119,6 @@ class SSOTokenData {
 			themingText: this.themingText,
 			themingBg: this.themingBg,
 			locale: this.locale,
-			user: this.user,
-			editor: this.editor,
 			tags: this.tags,
 		};
 	}
@@ -149,8 +145,6 @@ class SSOTokenData {
 			CLAIM_THEME_TEXT_COLOR: this.themingText,
 			CLAIM_THEME_BACKGROUND_COLOR: this.themingBg,
 			CLAIM_USER_LOCALE: this.locale,
-			USER_ROLE_USER: this.user,
-			USER_ROLE_EDITOR: this.editor,
 			USER_TAGS: this.tags,
 		};
 	}
@@ -330,7 +324,7 @@ class SSOTokenData {
 	 * @return {null|string}
 	 */
 	getLocale() {
-		return this._getClaim('CAIM_USER_LOCALE');
+		return this._getClaim('CLAIM_USER_LOCALE');
 	}
 
 	/**
@@ -343,7 +337,7 @@ class SSOTokenData {
 	 * @return {boolean}
 	 */
 	isEditor() {
-		return this._getClaim('CLAIM_USER_ROLE') === this.editor;
+		return this._getClaim('CLAIM_USER_ROLE') === 'editor';
 	}
 
 	/**

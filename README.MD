@@ -7,11 +7,11 @@ If you are developing your own plugin for your Staffbase app we describe the aut
 
 The plugin SDK can be fetched from the npm registry (http://npmjs.org/package/staffbase-plugins-nodejs). You can use npm command line tool to install it locally.
 
-    npm install (staffbase-sdk)
+    npm install (staffbase-plugin-sdk)
 
 You can also save the module as a local dependency in your project package.json file with the following command:
 
-    npm install --save (staffbase-sdk)
+    npm install --save (staffbase-plugin-sdk)
 
 
 ## API Reference
@@ -20,11 +20,11 @@ For the API reference of this SDK please consult the [docs](docs/API.MD).
 
 ## Usage
 
-After installation you just need to include the module in  your own Javascript Program.
+After installation you just need to include the module in your own Javascript Program.
 The module can be included using the following syntax:
 
 ```javascript
-const StaffBaseSSO = require('staffbase-sdk').sso
+const StaffBaseSSO = require('staffbase-plugin-sdk').sso;
 ```
 ## About secret token
 Staffbase backend support only RS256 algorithm of JWT which means that the secret
@@ -39,14 +39,14 @@ BASE64 ENCODED DATA
 
 You can use the helper function to read and verify if your public key is in the supported format.
 ```javascript
-	const helpers = require(`staffbase-sdk`).helpers
-	const publicKeyPath = '[[Your File Path]]'
-	let keySecret;
-	try {
-		keySecret = helpers.readKeyFile(publicKeyPath);
-	} catch (err) {
-		console.log('Error Reading Key file', err);
-	}
+const helpers = require(`staffbase-plugin-sdk`).helpers;
+const publicKeyPath = '[[Your File Path]]';
+let keySecret;
+try {
+	keySecret = helpers.readKeyFile(publicKeyPath);
+} catch (err) {
+	console.log('Error Reading Key file', err);
+}
 ```
 
 You can then use keySecret to get an instance of StaffBaseSSO class.
@@ -63,9 +63,9 @@ let tokenData = null;
 try {
 	let SSOContents = new StaffBaseSSO(pluginId, publicKey, jwtToken);
 	tokenData = SSOContents.getTokenData();
-  console.log('Received token data:', tokenData);
+	console.log('Received token data:', tokenData);
 } catch(tokenErr) {
-	console.error('Error decoding token:', tokenErr);
+ 	console.error('Error decoding token:', tokenErr);
 }
 ```
 
@@ -107,8 +107,8 @@ The key can be provided in the constructor or by setting an Environment variable
 To provide the key using constructor:
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
-const SSOMiddleware = require('staffbase-sso').middleware;
-let ssoMiddleWare = ssoMiddleWare(ssoSecret)
+const SSOMiddleware = require('staffbase-plugin-sdk').middleware;
+let ssoMiddleWare = ssoMiddleWare(ssoSecret);
 ```
 
 After getting an instance of the middleware function, you can simply mount it to your
@@ -117,7 +117,7 @@ an instance of `SSOTokenData` can be used in `req.sbSSO`.
 
 ```javascript
 const ssoSecret = [[YOUR_PUBLIC_KEY_HERE]];
-const SSOMiddleware = require(staffbase-sdk).middleware;
+const SSOMiddleware = require('staffbase-plugin-sdk').middleware;
 let ssoMiddleWare = SSOMiddleware(ssoSecret);
 
 const redirectURL = '/staffbase/sso/backoffice';
@@ -154,6 +154,11 @@ app.get(redirectURL, function(req, res) {
   return res.end();
 });
 ```
+
+### Generating Express Template
+You can also use the `create-staffbase-plugin` CLI tool to start a template for a basic
+express server configured with the SDK. For more detail please check out the
+[Project Repo](https://github.com/Staffbase/create-staffbase-plugin-nodejs).
 
 
 ## Contribution

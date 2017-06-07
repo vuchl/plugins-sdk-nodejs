@@ -86,8 +86,6 @@ class SSOToken {
 			CLAIM_THEME_TEXT_COLOR: decoded.theming_text || null,
 			CLAIM_THEME_BACKGROUND_COLOR: decoded.theming_bg || null,
 			CLAIM_USER_LOCALE: decoded.locale || null,
-			USER_ROLE_USER: decoded.user || null,
-			USER_ROLE_EDITOR: decoded.editor || null,
 			USER_TAGS: decoded.tags || null,
 		});
 		// Decode Token Data

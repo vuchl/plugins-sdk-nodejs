@@ -18,6 +18,10 @@
     "jwt",
     "authentication"
   ],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/Staffbase/plugins-sdk-nodejs"
+  },
   "author": "Hassaan Zaidi <hassaan@staffbase.com>",
   "license": "ISC",
   "devDependencies": {

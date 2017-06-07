@@ -3,8 +3,10 @@ const handlebars = require('handlebars');
 const path = require('path');
 
 const pluginNpmUrl = 'http://npmjs.org/package/staffbase-plugins-nodejs';
-const pluginNpmName = 'staffbase-sdk';
+const pluginNpmName = 'staffbase-plugin-sdk';
 const apiRefPath = 'docs/API.MD';
+const createToolURL = 'https://github.com/Staffbase/create-staffbase-plugin-nodejs';
+const createToolPkgName = 'create-staffbase-plugin';
 
 const SBConsts = require('../../src/utils/tokenDataConsts.js');
 
@@ -56,6 +58,8 @@ module.exports = {
 						pluginNpmName: pluginNpmName,
 						secretKeyEnv: SBConsts.secretKeyEnv,
 						pluginIDEnv: SBConsts.pluginIDEnv,
+						createToolPkgName: createToolPkgName,
+						createToolURL: createToolURL,
 					});
 					resolve(rendered);
 				}

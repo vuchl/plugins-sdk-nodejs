@@ -60,7 +60,7 @@ describe('Testing SSOTokenData Class', () => {
       //   });
       // });
       test('Should return error if no secret specified', (done) => {
-        SSOTokenDataObj.getSigned(null, (err) => {
+        SSOTokenDataObj.getSigned(null, (err, signed) => {
           expect(err).toBe('No secret specified');
           done();
         });
