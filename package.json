@@ -1,5 +1,5 @@
 {
-  "name": "staffbase-plugin-sdk",
+  "name": "@staffbase/staffbase-plugin-sdk",
   "version": "1.0.0",
   "description": "Staffbase Plugin SDK for Javascript / Node.js",
   "main": "./dist/index.js",
