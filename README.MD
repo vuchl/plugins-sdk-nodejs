@@ -7,13 +7,13 @@ If you are developing your own plugin for your Staffbase app we describe the aut
 
 ## Installation
 
-The plugin SDK can be fetched from the npm registry (http://npmjs.org/package/staffbase-plugins-nodejs). You can use npm command line tool to install it locally.
+The plugin SDK can be fetched from the npm registry (https://www.npmjs.com/package/@staffbase/staffbase-plugin-sdk). You can use npm command line tool to install it locally.
 
-    npm install (@staffbase/staffbase-plugin-sdk)
+    npm install @staffbase/staffbase-plugin-sdk
 
 You can also save the module as a local dependency in your project package.json file with the following command:
 
-    npm install --save (@staffbase/staffbase-plugin-sdk)
+    npm install --save @staffbase/staffbase-plugin-sdk
 
 
 ## API Reference
